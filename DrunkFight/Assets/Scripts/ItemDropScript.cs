@@ -35,11 +35,10 @@ public class ItemDropScript : MonoBehaviour {
           }
      }
 
-     void OnTriggerEnter2D(Collider2D other)
+     void OnTriggerStay2D(Collider2D other)
      {
           if (currentItem != 0)
           {
-               Debug.Log("dolan"); 
                takeItem();
           }
      }
