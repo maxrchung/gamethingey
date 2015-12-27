@@ -1,13 +1,17 @@
 using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 
-public class Movement : MonoBehaviour {
+public class Movement : NetworkBehaviour {
 	public float Speed = 0f;
 	private float movex = 0f;
 	private float movey = 0f;
 	// Use this for initialization
 	void Update () {
-
+        if (!isLocalPlayer)
+        {
+            return;
+        }
 		if (Input.GetKey (KeyCode.A))
 			movex = -1;
 		else if (Input.GetKey (KeyCode.D))
@@ -23,6 +27,10 @@ public class Movement : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void FixedUpdate () {
+        if (!isLocalPlayer)
+        {
+            return;
+        }
 		var mousePosition = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 		Quaternion rot = Quaternion.LookRotation(transform.position - mousePosition,Vector3.forward);
 		
