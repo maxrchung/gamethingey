@@ -27,19 +27,40 @@ public class Movement : NetworkBehaviour
         //GetComponent<Rigidbody2D>().velocity = new Vector2 (movex * Speed, movey * Speed);
 
         //var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        var mousePosition = Input.mousePosition;
+        /*var mousePosition = Input.mousePosition;
         mousePosition.z = -10.0f;
         mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
         Quaternion rot = Quaternion.LookRotation(transform.position - mousePosition, Vector3.forward);
 
         transform.rotation = rot;
         transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z - 180);
-        GetComponent<Rigidbody2D>().angularVelocity = 0;
+        GetComponent<Rigidbody2D>().angularVelocity = 0;*/
+
+        // Rotate player towards mouse
+        float turnSpeed = 7.0f;
+        if (Camera.main != null)
+        {
+            Vector3 pos = Camera.main.WorldToScreenPoint(transform.position);
+            Vector3 dir = Input.mousePosition - pos;
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            Quaternion lookDirection = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, lookDirection, turnSpeed);
+        }
 
         // Handle movement
         accelerations["Movement"].x = null;
         accelerations["Movement"].y = null;
         float moveSpeed = 3.5f;
+
+        // Scale player's movement speed based on angular difference between player's forward direction and movement direction
+        // Effectively walks faster in the facing direction
+        Vector3 axis;
+        float anglediff;
+        Quaternion.FromToRotation(transform.up, GetComponent<Rigidbody2D>().velocity).ToAngleAxis(out anglediff, out axis);
+        if (anglediff > 100)
+            moveSpeed = moveSpeed * 0.7f;
+        else if (anglediff > 145)
+            moveSpeed = moveSpeed * 0.3f;
 
         if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) && (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S)))
             moveSpeed = moveSpeed / Mathf.Sqrt(2.0f);
@@ -76,12 +97,6 @@ public class Movement : NetworkBehaviour
             accelerations["Friction"].y = 0.0f;
         }
 
-        // Set Animator flag
-        if (accelerations["Movement"].y == 0.0f && accelerations["Movement"].x == 0.0f)
-            GetComponent<Animator>().SetBool("Moving", false);
-        else
-            GetComponent<Animator>().SetBool("Moving", true);
-
         // Apply all accelerations
         foreach (Acceleration accel in accelerations.Values)
         {
@@ -97,6 +112,12 @@ public class Movement : NetworkBehaviour
             // Apply linear interpolation to player velocity
             GetComponent<Rigidbody2D>().velocity = Vector3.MoveTowards(GetComponent<Rigidbody2D>().velocity, new Vector3(targetX, targetY), Time.fixedDeltaTime * accel.accel);
         }
+
+        // Set Animator flag
+        if (Vector2.zero.Equals(GetComponent<Rigidbody2D>().velocity))
+            GetComponent<Animator>().SetBool("Moving", false);
+        else
+            GetComponent<Animator>().SetBool("Moving", true);
     }
 }
 
