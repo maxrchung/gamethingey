@@ -26,11 +26,14 @@ public class Movement : NetworkBehaviour
         }
         //GetComponent<Rigidbody2D>().velocity = new Vector2 (movex * Speed, movey * Speed);
 
-        var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        var mousePosition = Input.mousePosition;
+        mousePosition.z = -10.0f;
+        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
         Quaternion rot = Quaternion.LookRotation(transform.position - mousePosition, Vector3.forward);
 
         transform.rotation = rot;
-        transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z);
+        transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z - 180);
         GetComponent<Rigidbody2D>().angularVelocity = 0;
 
         // Handle movement
