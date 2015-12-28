@@ -22,7 +22,6 @@ public class LobbyPanel : MonoBehaviour {
     {
         if (lobbyManager.isHost)
         {
-            lobbyManager.ChangeTo(connectionPanel);
             lobbyManager.ServerChangeScene(lobbyManager.playScene);
         }
     }
