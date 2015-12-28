@@ -6,6 +6,7 @@ public class Movement : NetworkBehaviour {
 	public float Speed = 0f;
 	private float movex = 0f;
 	private float movey = 0f;
+
 	// Use this for initialization
 	void Update () {
         if (!isLocalPlayer)
