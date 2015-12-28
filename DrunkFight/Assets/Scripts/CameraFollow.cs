@@ -5,7 +5,12 @@ using System.Collections;
 public class CameraFollow : NetworkBehaviour {
     public float dampTime = 0.5f;
     public float rotationDegrees = 2.0f;
-    int reverse = 1;
+    public float lurchAmount = 0.03f;
+    public float lurchTimerMax = 2.0f;
+    float lurchTimer = 0.0f;
+    Vector3 lurch;
+    int lurchReverse = 1;
+    int rockingReverse = 1;
     Vector3 velocity = Vector3.zero;
     GameObject player;
     Camera camera;
@@ -20,6 +25,8 @@ public class CameraFollow : NetworkBehaviour {
             {
                 player = p;
                 camera = GetComponent<Camera>();
+                lurchTimer = lurchTimerMax;
+                SetLurch();
                 break;
             }
         }
@@ -30,6 +37,7 @@ public class CameraFollow : NetworkBehaviour {
     {
         if (player)
         {
+            SetLurch();
             Vector3 targetPos = player.transform.position;
             targetPos += new Vector3(0, 0, -10.0f);
             Vector3 cameraPos = camera.transform.position;
@@ -37,9 +45,21 @@ public class CameraFollow : NetworkBehaviour {
             if (Mathf.Abs(camera.transform.rotation.eulerAngles.z) >= 5 &&
                 Mathf.Abs(camera.transform.rotation.eulerAngles.z) <= 355)
             {
-                reverse *= -1;
+                rockingReverse *= -1;
             }
-            camera.transform.Rotate(0, 0, rotationDegrees * reverse * Time.deltaTime);
+            camera.transform.Rotate(0, 0, rotationDegrees * rockingReverse * Time.deltaTime);
+            camera.transform.position += lurch * Time.deltaTime;
+        }
+    }
+
+    void SetLurch()
+    {
+        lurchTimer += Time.deltaTime;
+        if (lurchTimer >= lurchTimerMax)
+        {
+            lurchTimer = 0.0f;
+            lurch = new Vector3(0, 0, lurchReverse * lurchAmount);
+            lurchReverse *= -1;
         }
     }
 }
