@@ -8,14 +8,19 @@ public class WeaponScript : MonoBehaviour
      public float vomitDelay;
      public float poopDelay;
      public float flameDelay;
-     public int currentWeapon;
-     public float timer = 0;
+     private int currentWeapon;
+     private float timer = 0;
+     private int poopCharges;
      public GameObject vomit;
      public GameObject poop;
 
      public void getWeapon(int weapon)
      {
           currentWeapon = weapon;
+          if (currentWeapon == 2)
+          {
+               poopCharges = 2;
+          }
      }
 
      void Update()
@@ -34,6 +39,11 @@ public class WeaponScript : MonoBehaviour
                else if (currentWeapon == 2)
                {
                     dropPoop();
+                    poopCharges -= 1;
+                    if (poopCharges <= 0)
+                    {
+                         currentWeapon = 0;
+                    }
                }
                else if (currentWeapon >= 3)
                {
