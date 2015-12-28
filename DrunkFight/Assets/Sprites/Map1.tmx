@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="34" height="34" tilewidth="64" tileheight="64" nextobjectid="1">
+ <tileset firstgid="1" name="Wall" tilewidth="64" tileheight="64" tilecount="1">
+  <image source="wall.png" width="64" height="64"/>
+  <tile id="0">
+   <objectgroup draworder="index">
+    <object id="0" x="0" y="0" width="64" height="64"/>
+   </objectgroup>
+  </tile>
+ </tileset>
+ <tileset firstgid="2" name="testItem" tilewidth="64" tileheight="64" tilecount="1">
+  <image source="testItem.png" width="64" height="64"/>
+  <tile id="0">
+   <objectgroup draworder="index">
+    <object id="0" x="0" y="0" width="64" height="64"/>
+   </objectgroup>
+  </tile>
+ </tileset>
+ <layer name="Tile Layer 1" width="34" height="34">
+  <data encoding="base64" compression="zlib">
+   eJztlVEOABEMRPX+l97fXcFOazDCJBJNqKeqtZSSiYy3cjuiko+WX3UOdowRbsb9e3Uihzc/lDi8OYesj+S2VeYtjr/10XiocLDfBdm/Wrty9NZuJgfi9ySO3p7K6tFR3f6Ca2Zd351jRN/3coyQEkfpPMX6Ealz6F7kvmrxWK3L8VXOUfpTLJvxX2aMB/YnARQ=
+  </data>
+ </layer>
+ <objectgroup name="Object Layer 1"/>
+ <objectgroup name="Object Layer 2"/>
+</map>
