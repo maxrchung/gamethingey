@@ -13,14 +13,14 @@ public class ItemDropScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
           spriteKun = GetComponent<SpriteRenderer>();
-          currentItem = (int)(UnityEngine.Random.value*100) % 4 + 1;
+          currentItem = (int)(UnityEngine.Random.value*100) % 4;
 	}
 	
 	// Update is called once per frame
 	void Update () {
           if (currentItem == 0 && Time.time - dropTime > 3)
           {
-               currentItem = (int)(UnityEngine.Random.value * 100) % 4 + 1;
+               currentItem = (int)(UnityEngine.Random.value * 100) % 4;
           }
 	}
 
