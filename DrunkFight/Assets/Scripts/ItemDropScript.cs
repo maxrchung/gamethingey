@@ -7,8 +7,8 @@ public class ItemDropScript : MonoBehaviour {
      private float dropTime;
      public Sprite spawn;
      public Sprite item1;
-     public GameObject player;
      private SpriteRenderer spriteKun;
+     public WeaponScript weaponScript;
 
 	// Use this for initialization
 	void Start () {
@@ -42,6 +42,7 @@ public class ItemDropScript : MonoBehaviour {
           {
                if (currentItem != 0)
                {
+                    weaponScript.getWeapon(currentItem);
                     takeItem();
                }
           }
