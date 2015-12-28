@@ -7,6 +7,7 @@ public class ItemDropScript : MonoBehaviour {
      private float dropTime;
      public Sprite spawn;
      public Sprite item1;
+     public GameObject player;
      private SpriteRenderer spriteKun;
 
 	// Use this for initialization
@@ -37,9 +38,12 @@ public class ItemDropScript : MonoBehaviour {
 
      void OnTriggerStay2D(Collider2D other)
      {
-          if (currentItem != 0)
+          if (other.gameObject.tag == "Player")
           {
-               takeItem();
+               if (currentItem != 0)
+               {
+                    takeItem();
+               }
           }
      }
 
