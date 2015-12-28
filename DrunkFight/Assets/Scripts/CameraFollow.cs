@@ -4,13 +4,12 @@ using System.Collections;
 
 public class CameraFollow : NetworkBehaviour {
     public float dampTime = 0.5f;
-    public float maxLurchDistance = 3;
-    public float minLurchDistance = 2;
-    public float nextLurchLimit = 2;
-    float nextLurchTime;
+    public float maxLurch = 3.0f;
+    public float minLurch = 2.0f;
+    public float nextLurch = 1.0f;
     float timer;
-    Vector2 velocity = Vector3.zero;
-    Vector2 lurch = Vector2.zero;
+    Vector3 velocity = Vector3.zero;
+    Vector3 lurch = Vector2.zero;
     GameObject player;
     Camera camera;
 
@@ -24,8 +23,7 @@ public class CameraFollow : NetworkBehaviour {
             {
                 player = p;
                 camera = GetComponent<Camera>();
-                nextLurchTime = nextLurchLimit;
-                timer = nextLurchTime;
+                timer = nextLurch;
                 SetLurch();
                 break;
             }
@@ -38,29 +36,32 @@ public class CameraFollow : NetworkBehaviour {
         if (player)
         {
             SetLurch();
-            Vector2 targetPos = player.transform.position;
-            targetPos += lurch;
-            Vector2 cameraPos = camera.transform.position;
-            Vector2 damp = Vector2.SmoothDamp(cameraPos, targetPos, ref velocity, dampTime);
-            camera.transform.position = new Vector3(damp.x, damp.y, -10);
+            Vector3 targetPos = player.transform.position;
+            targetPos += new Vector3(0, 0, -10.0f);
+            Vector3 cameraPos = camera.transform.position;
+            camera.transform.position = Vector3.SmoothDamp(cameraPos, targetPos, ref velocity, dampTime);
+            camera.transform.position += lurch;
+            
         }
     }
 
     void SetLurch()
     {
         timer += Time.deltaTime;
-        Debug.Log("Lurch: " + lurch.ToString());
-        Debug.Log("timer: " + timer.ToString());
-        Debug.Log("nextLurchTime: " + nextLurchTime.ToString());
-        if (timer >= nextLurchTime ||
-            camera.transform.position == player.transform.position + (Vector3)lurch)
+        if (timer >= nextLurch)
         {
+            
             timer = 0;
-            nextLurchTime = Random.Range(0.5f * nextLurchLimit, nextLurchLimit);
-            float degrees = Random.Range(0, 360);
-            Quaternion rotation = Quaternion.Euler(0, 0, degrees);
-            lurch = rotation * new Vector3(Random.Range(minLurchDistance, maxLurchDistance), 0, 0);
-            Debug.Log("Lurch: " + lurch.ToString());
+            Vector3 targetPos = player.transform.position;
+            Vector3 cameraPos = camera.transform.position;
+            Vector3 diff = targetPos - cameraPos;
+            diff.z = 0;
+            diff.Normalize();
+            diff *= Random.Range(minLurch, maxLurch);
+            Quaternion rotation = Quaternion.Euler(0, 0, Random.Range(5.0f, 20.0f));
+            lurch = rotation * (diff + new Vector3(0, 0, Random.Range(minLurch, maxLurch)));
+            Debug.Log("lurch: " + lurch.ToString());
+            
         }
     }
 }

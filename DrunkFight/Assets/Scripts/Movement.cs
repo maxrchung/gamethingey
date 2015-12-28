@@ -68,7 +68,6 @@ public class Movement : NetworkBehaviour {
 
             // Apply linear interpolation to player velocity
             GetComponent<Rigidbody2D>().velocity = Vector3.MoveTowards(GetComponent<Rigidbody2D>().velocity, new Vector3(targetX, targetY), Time.fixedDeltaTime * accel.accel);
-            Debug.Log(new Vector3(targetX, targetY));
         }
 	}
 }
