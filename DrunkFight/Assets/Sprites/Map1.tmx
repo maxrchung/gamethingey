@@ -8,28 +8,58 @@
    </objectgroup>
   </tile>
  </tileset>
- <tileset firstgid="2" name="testItem" tilewidth="64" tileheight="64" tilecount="1">
-  <image source="testItem.png" width="64" height="64"/>
+ <tileset firstgid="2" name="floor" tilewidth="64" tileheight="64" tilecount="1">
+  <image source="floor.png" width="64" height="64"/>
+ </tileset>
+ <tileset firstgid="3" name="newWall" tilewidth="64" tileheight="64" tilecount="1">
+  <image source="newWall.png" width="64" height="64"/>
   <tile id="0">
    <objectgroup draworder="index">
     <object id="0" x="0" y="0" width="64" height="64"/>
    </objectgroup>
   </tile>
  </tileset>
- <tileset firstgid="3" name="newWall" tilewidth="64" tileheight="64" tilecount="1">
-  <image source="newWall2.png" width="64" height="64"/>
+ <tileset firstgid="4" name="table2" tilewidth="256" tileheight="256" tilecount="1">
+  <image source="table2.png" width="256" height="256"/>
+  <tile id="0">
+   <objectgroup draworder="index">
+    <object id="0" x="192" y="0">
+     <polyline points="0,0 64,64 64,192 0,256 -128,256 -192,192 -192,64 -128,0 0,0"/>
+    </object>
+   </objectgroup>
+  </tile>
  </tileset>
- <tileset firstgid="4" name="floor" tilewidth="64" tileheight="64" tilecount="1">
-  <image source="floor.png" width="64" height="64"/>
+ <tileset firstgid="5" name="table" tilewidth="256" tileheight="256" tilecount="1">
+  <image source="table.png" width="256" height="256"/>
+  <tile id="0">
+   <objectgroup draworder="index">
+    <object id="0" x="0" y="0" width="256" height="256">
+     <ellipse/>
+    </object>
+   </objectgroup>
+  </tile>
  </tileset>
- <tileset firstgid="5" name="newWall" tilewidth="64" tileheight="64" tilecount="1">
+ <tileset firstgid="6" name="table3" tilewidth="256" tileheight="256" tilecount="1">
+  <image source="table3.png" width="256" height="256"/>
+  <tile id="0">
+   <objectgroup draworder="index">
+    <object id="0" x="0" y="0" width="256" height="256">
+     <ellipse/>
+    </object>
+   </objectgroup>
+  </tile>
+ </tileset>
+ <tileset firstgid="7" name="newWall" tilewidth="64" tileheight="64" tilecount="1">
   <image source="newWall.png" width="64" height="64"/>
  </tileset>
  <layer name="Tile Layer 1" width="34" height="34">
   <data encoding="base64" compression="zlib">
-   eJztl+EKgCAMhA31/V85/CGImNPtFhcm3A/L7ON2TcohhEyi1KjMraPfMz1ca+8xc6A9lqR5xkMncuzmg4nj6iS9Y2W9JttlrzpWOaT1Wj9YONB1kbJz2neL5LD4j+wfu/k9gcNSF+QZbckiyo+3OVj6mEdf/zoHui5RweEhJo6qEQOTH5o+FxViqQsDx0w/x5xj9M+Nmq+ccwy6ARsAETw=
+   eJztl8EKwCAMQ4sX//+PPRXGKLOWUONsIQeZdG8xOuwi0knUHnqPI7J6fPVl50B77OFGfD/Cv9s4VvNxA0ck21re98zmR/1g4chUcezjQOdDqzgwGUD9o1nycTqHZ82sZ1reXqvzT+P4az6YOGb3AxY/Iucc8k7D5kcGhyc7xWFzWHsKNUbslwwNYfINFA==
   </data>
  </layer>
- <objectgroup name="Object Layer 1"/>
- <objectgroup name="Object Layer 2"/>
+ <layer name="Tile Layer 2" width="34" height="34">
+  <data encoding="base64" compression="zlib">
+   eJzt1bkNADAMAkAXSfYfOTNQWHl0V1PQIKoA+N0M86ulBbxtnC4AF0p3kf4RAH027OAAGQ==
+  </data>
+ </layer>
 </map>
