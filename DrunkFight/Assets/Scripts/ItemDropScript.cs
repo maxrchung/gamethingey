@@ -42,6 +42,7 @@ public class ItemDropScript : MonoBehaviour {
           {
                if (currentItem != 0)
                {
+                    weaponScript = other.GetComponent<WeaponScript>();
                     weaponScript.getWeapon(currentItem);
                     takeItem();
                }
