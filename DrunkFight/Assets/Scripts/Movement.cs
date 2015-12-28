@@ -39,5 +39,12 @@ public class Movement : NetworkBehaviour {
 		GetComponent<Rigidbody2D>().angularVelocity = 0;
 
 		GetComponent<Rigidbody2D>().velocity = new Vector2 (movex * Speed, movey * Speed);
+		if(movex * Speed == 0 && movey * Speed == 0) {
+			GetComponent<Animator>().SetBool("Moving", false);
+		}
+		else {
+			Debug.Log("WHAAAA");
+			GetComponent<Animator>().SetBool("Moving", true);
+		}
 	}
 }
