@@ -7,9 +7,11 @@ public class LobbyManager : NetworkLobbyManager {
     public RectTransform lobbyPanel;
     public RectTransform connectionPanel;
 
-    protected RectTransform currentPanel;
+    [HideInInspector]
+    public RectTransform currentPanel;
 
-    int numPlayers = 0;
+    [HideInInspector]
+    public bool isHost = false;
 
     void Start()
     {

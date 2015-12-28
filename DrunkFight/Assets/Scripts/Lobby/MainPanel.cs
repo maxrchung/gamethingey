@@ -5,6 +5,7 @@ using System.Collections;
 public class MainPanel : MonoBehaviour {
     public LobbyManager lobbyManager;
     public RectTransform lobbyPanel;
+    public GameObject hostCover;
     public InputField ipInput;
 
     public void OnEnable()
@@ -16,20 +17,24 @@ public class MainPanel : MonoBehaviour {
     public void OnClickHost()
     {
         lobbyManager.StartHost();
+        lobbyManager.isHost = true;
+        hostCover.SetActive(false);
     }
 
     public void OnClickJoin()
     {
-        lobbyManager.ChangeTo(lobbyPanel);
-        lobbyManager.networkAddress = ipInput.text;
-        lobbyManager.StartClient();
-        Debug.Log("Joined: " + lobbyManager.networkAddress);
+        if (ipInput.text.Length > 0)
+        {
+            lobbyManager.ChangeTo(lobbyPanel);
+            lobbyManager.networkAddress = ipInput.text;
+            lobbyManager.StartClient();
+            hostCover.SetActive(true);
+        }
     }
-
 
     void onEndEditIP(string text)
     {
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return) && ipInput.text.Length > 0)
         {
             OnClickJoin();
         }

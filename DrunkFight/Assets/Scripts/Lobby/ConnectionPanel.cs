@@ -8,7 +8,10 @@ public class ConnectionPanel : MonoBehaviour {
 
     public void OnClickQuitGame()
     {
+        Debug.Log("Quitting game!");
         lobbyManager.ChangeTo(mainPanel);
-        NetworkServer.Shutdown();
+        lobbyManager.StopHost();
+        lobbyManager.StopClient();
+        lobbyManager.isHost = false;
     }
 }
