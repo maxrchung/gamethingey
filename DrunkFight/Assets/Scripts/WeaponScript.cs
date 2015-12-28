@@ -12,6 +12,7 @@ public class WeaponScript : MonoBehaviour
      private float timer = 0;
      private int poopCharges;
      public GameObject vomit;
+     public GameObject fire;
      public GameObject poop;
 
      public void getWeapon(int weapon)
@@ -45,12 +46,19 @@ public class WeaponScript : MonoBehaviour
                          currentWeapon = 0;
                     }
                }
-               else if (currentWeapon >= 3)
+               else if(currentWeapon == 3) {
+                    fireFire();
+               }
+               else if (currentWeapon >= 4)
                {
 
                }
                Debug.Log("click");
           }  
+     }
+
+     void fireFire() {
+          
      }
 
      void fireVomit()
