@@ -25,6 +25,8 @@ public class CameraFollow : NetworkBehaviour {
             {
                 player = p;
                 camera = GetComponent<Camera>();
+                camera.transform.position = player.transform.position;
+                camera.transform.position += new Vector3(0, 0, -10.0f);
                 lurchTimer = lurchTimerMax;
                 SetLurch();
                 break;
