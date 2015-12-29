@@ -9,7 +9,7 @@ public class WeaponScript : NetworkBehaviour
     public float vomitDelay;
     public float poopDelay;
     public float flameDelay;
-    private int currentWeapon;
+	public int currentWeapon;
     private float timer = 0;
     public int charges;
     public GameObject vomit;
