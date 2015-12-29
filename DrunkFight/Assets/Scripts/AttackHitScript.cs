@@ -7,6 +7,7 @@ public class AttackHitScript : MonoBehaviour
     public float knockback;
     public float slow;
     public float slowDuration;
+	public string destroys;
 
     private string playerId;
 
@@ -48,6 +49,9 @@ public class AttackHitScript : MonoBehaviour
                 }
             }
         }
+		if (other.tag == destroys) {
+			Destroy (other.gameObject);
+		}
     }
 
     public void ClearHitPlayers()
