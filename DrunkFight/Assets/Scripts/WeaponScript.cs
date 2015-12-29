@@ -34,28 +34,31 @@ public class WeaponScript : NetworkBehaviour
             charges = 5;
         }
     }
-
+    
     void Update()
     {
+        if (!isLocalPlayer)
+            return;
+
         if (Input.GetMouseButtonDown(0) && Time.time > timer)
         {
             if (currentWeapon <= 0)
             {
-                punch();
+                CmdPunch();
             }
             else if (currentWeapon == 1)
             {
-                fireVomit();
+                CmdFireVomit();
                 charges = decreaseCharge(charges);
             }
             else if (currentWeapon == 2)
             {
-                dropPoop();
+                CmdDropPoop();
                 charges = decreaseCharge(charges);
             }
             else if (currentWeapon == 3)
             {
-                fireFire();
+                CmdFireFire();
                 charges = decreaseCharge(charges);
             }
             else if (currentWeapon >= 4)
@@ -75,14 +78,17 @@ public class WeaponScript : NetworkBehaviour
         return charge;
     }
 
-    void punch()
+    [Command]
+    void CmdPunch()
     {
         timer = Time.time + vomitDelay;
         GameObject punchObj = (GameObject)Instantiate(fist);
         punchObj.transform.SetParent(transform, true);
         NetworkServer.Spawn(punchObj);
     }
-    void fireFire()
+
+    [Command]
+    void CmdFireFire()
     {
         timer = Time.time + vomitDelay;
         GameObject fireObj = (GameObject)Instantiate(fire, fireSpawnPoint.transform.position, fireSpawnPoint.transform.rotation);
@@ -90,14 +96,16 @@ public class WeaponScript : NetworkBehaviour
         NetworkServer.Spawn(fireObj);
     }
 
-    void fireVomit()
+    [Command]
+    void CmdFireVomit()
     {
         timer = Time.time + vomitDelay;
         GameObject vomitObj = (GameObject)Instantiate(vomit, transform.position, transform.rotation);
         NetworkServer.Spawn(vomitObj);
     }
 
-    void dropPoop()
+    [Command]
+    void CmdDropPoop()
     {
         timer = Time.time + vomitDelay;
         GameObject dropObj = (GameObject)Instantiate(poop, transform.position, transform.rotation);
