@@ -113,6 +113,13 @@ public class Movement : NetworkBehaviour
         else
             GetComponent<Animator>().SetBool("Moving", true);
     }
+
+    public void ApplyHit(float damage, Vector3 knockback, float slow)
+    {
+        Debug.Log("Hit for " + damage + " damage");
+        Debug.Log("Knocked back for " + knockback);
+        Debug.Log("Slowed by " + slow);
+    }
 }
 
 public class Acceleration
