@@ -53,10 +53,7 @@ public class WeaponScript : NetworkBehaviour
             timer = Time.time + vomitDelay;
             if (currentWeapon <= 0)
             {
-                    CmdPunch(gameObject);
-   
-                Debug.Log("AHHH");
-                
+                    CmdPunch();                
                 
             }
             else if (currentWeapon == 1)
@@ -93,7 +90,7 @@ public class WeaponScript : NetworkBehaviour
     }
 
     [Command]
-    void CmdPunch(GameObject par)
+    void CmdPunch()
     {
         RpcPunch(gameObject);
     }
@@ -103,20 +100,24 @@ public class WeaponScript : NetworkBehaviour
         foreach(Transform child in ugh.transform) {
             Debug.Log(child.transform.tag);
             if(child.transform.tag == "FISTOFFAME") {
-                child.transform.gameObject.active = true;
-                Debug.Log("WTF");
-            }
+                child.transform.gameObject.active = true;            }
         }    
     }
 
     [Command]
     void CmdFireFire()
     {
-        GameObject fireObj = (GameObject)Instantiate(fire, fireSpawnPoint.transform.position, fireSpawnPoint.transform.rotation);
-        fireObj.GetComponent<AttackHitScript>().setPlayerId(Network.player.ToString());
-        fireObj.transform.SetParent(transform, true);
-        Debug.Log("FIRE");
-        NetworkServer.Spawn(fireObj);
+        RpcFireFire(gameObject);
+    }
+
+    [ClientRpc]
+    void RpcFireFire(GameObject ugh) {
+        foreach(Transform child in ugh.transform) {
+            Debug.Log(child.transform.tag);
+            if(child.transform.tag == "FIREBOMB") {
+                child.transform.gameObject.active = true;
+            }
+        }   
     }
 
     [Command]
