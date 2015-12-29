@@ -13,14 +13,21 @@ public class Movement : NetworkBehaviour
     public float sidewaysMoveFraction = 0.7f;
     public float backwardsMoveFraction = 0.3f;
 
+    [HideInInspector]
+    public uint id;
+
     private Dictionary<string, Acceleration> accelerations;
+    private string playerId;
 
     // Use this for initialization
     void Start()
     {
+        id = netId.Value;
+        Debug.Log("NetID: " + netId.ToString());
         accelerations = new Dictionary<string, Acceleration>();
         accelerations.Add("Movement", new Acceleration(null, null, moveAccel));
         accelerations.Add("Friction", new Acceleration(0.0f, 0.0f, frictionAccel));
+        playerId = Network.player.ToString();
     }
 
     // Update is called once per frame
@@ -112,6 +119,14 @@ public class Movement : NetworkBehaviour
             GetComponent<Animator>().SetBool("Moving", false);
         else
             GetComponent<Animator>().SetBool("Moving", true);
+    }
+
+    public void ApplyHit (string playerId, float damage, Vector3 knockback, float slow)
+    {
+        Debug.Log("Player " + this.playerId + " was hit by an attack from Player " + playerId);
+        //Debug.Log("Hit for " + damage + " damage");
+        //Debug.Log("Knocked back for " + knockback);
+        //Debug.Log("Slowed by " + slow);
     }
 }
 

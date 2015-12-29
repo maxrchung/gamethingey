@@ -9,7 +9,7 @@ public class WeaponScript : NetworkBehaviour
     public float vomitDelay;
     public float poopDelay;
     public float flameDelay;
-    private int currentWeapon;
+	public int currentWeapon;
     private float timer = 0;
     public int charges;
     public GameObject vomit;
@@ -24,6 +24,7 @@ public class WeaponScript : NetworkBehaviour
         if (weapon >= 4)
         {
             weapon = 0;
+			charges = 999;
         }
         currentWeapon = weapon;
         if (currentWeapon == 1)
@@ -86,6 +87,7 @@ public class WeaponScript : NetworkBehaviour
         if (charge <= 0)
         {
             currentWeapon = 0;
+			charges = 999;
         }
         return charge;
     }
@@ -111,6 +113,7 @@ public class WeaponScript : NetworkBehaviour
     void CmdFireFire()
     {
         GameObject fireObj = (GameObject)Instantiate(fire, fireSpawnPoint.transform.position, fireSpawnPoint.transform.rotation);
+        fireObj.GetComponent<AttackHitScript>().setPlayerId(Network.player.ToString());
         fireObj.transform.SetParent(transform, true);
         Debug.Log("FIRE");
         NetworkServer.Spawn(fireObj);
@@ -120,6 +123,7 @@ public class WeaponScript : NetworkBehaviour
     void CmdFireVomit()
     {
         GameObject vomitObj = (GameObject)Instantiate(vomit, transform.position, transform.rotation);
+        vomitObj.GetComponent<AttackHitScript>().setPlayerId(Network.player.ToString());
         NetworkServer.Spawn(vomitObj);
     }
 
@@ -127,6 +131,7 @@ public class WeaponScript : NetworkBehaviour
     void CmdDropPoop()
     {
         GameObject dropObj = (GameObject)Instantiate(poop, transform.position, transform.rotation);
+        dropObj.GetComponent<AttackHitScript>().setPlayerId(Network.player.ToString());
         NetworkServer.Spawn(dropObj);
     }
 }
