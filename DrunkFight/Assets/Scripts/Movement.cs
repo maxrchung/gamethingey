@@ -13,6 +13,9 @@ public class Movement : NetworkBehaviour
     public float sidewaysMoveFraction = 0.7f;
     public float backwardsMoveFraction = 0.3f;
 
+    private float slowCounter;
+    private float slow;
+
     [SyncVar]
     public float health = 100.0f;
 
@@ -27,6 +30,7 @@ public class Movement : NetworkBehaviour
         accelerations = new Dictionary<string, Acceleration>();
         accelerations.Add("Movement", new Acceleration(null, null, moveAccel));
         accelerations.Add("Friction", new Acceleration(0.0f, 0.0f, frictionAccel));
+        slowCounter = 0.0f;
         playerId = netId.ToString();
         Debug.Log(playerId);
     }
@@ -50,11 +54,16 @@ public class Movement : NetworkBehaviour
             Vector3 dir = Input.mousePosition - pos;
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             Quaternion lookDirection = Quaternion.AngleAxis(angle - 90, Vector3.forward);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, lookDirection, turnSpeed);
+            //transform.rotation = Quaternion.RotateTowards(transform.rotation, lookDirection, turnSpeed);
+            transform.rotation = lookDirection;
         }
 
         // Handle movement
         float currMoveSpeed = moveSpeed;
+        if (slowCounter > 0.0f)
+            currMoveSpeed = slow * moveSpeed;
+        slowCounter -= Time.fixedDeltaTime;
+
         accelerations["Movement"].x = null;
         accelerations["Movement"].y = null;
 
@@ -126,13 +135,20 @@ public class Movement : NetworkBehaviour
             GetComponent<Animator>().SetBool("Moving", true);
     }
 
-    public void ApplyHit (string hitOrigin, float damage, Vector3 knockback, float slow)
+    public void ApplyHit (string hitOrigin, float damage, Vector3 knockback, float slow, float slowDuration)
     {
         Debug.Log("Player " + this.playerId + " was hit by an attack from Player " + hitOrigin);
         if(isServer) { // && this.playerId != hitOrigin) {
             health -= damage;
         }
         Debug.Log("Health: " + health);
+
+        // Apply knockback
+        GetComponent<Rigidbody2D>().velocity = knockback;
+
+        // Apply slow
+        this.slow = slow;
+        this.slowCounter = slowDuration;
 
         //Debug.Log("Hit for " + damage + " damage");
         //Debug.Log("Knocked back for " + knockback);
