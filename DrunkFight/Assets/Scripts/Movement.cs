@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Networking;
+using System.Collections;
 using System.Collections.Generic;
 
 public class Movement : NetworkBehaviour
@@ -13,6 +14,7 @@ public class Movement : NetworkBehaviour
     public float sidewaysMoveFraction = 0.7f;
     public float backwardsMoveFraction = 0.3f;
     private List<Vector3> spawnLocations = new List<Vector3>();
+    public float respawnTimer = 3.0f;
 
     [SyncVar]
     public float startingHealth = 100.0f;
@@ -159,8 +161,20 @@ public class Movement : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            transform.position = spawnLocations[Random.Range(0, spawnLocations.Count)];
+            StartCoroutine("Respawn");
         }
+    }
+
+    IEnumerator Respawn()
+    {
+        float resetTimer = respawnTimer;
+        Debug.Log(respawnTimer);
+        while (respawnTimer >= 0) {
+            respawnTimer -= Time.deltaTime;
+            yield return null;
+        }
+        respawnTimer = resetTimer;
+        transform.position = spawnLocations[Random.Range(0, spawnLocations.Count)];
     }
 }
 

@@ -11,7 +11,6 @@ public class WeaponSwap : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Debug.Log("Wat");
 		foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
 		{
 			Debug.Log(player.GetComponent<Movement>().netId.ToString());
