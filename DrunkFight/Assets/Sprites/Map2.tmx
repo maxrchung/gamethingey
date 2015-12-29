@@ -162,12 +162,12 @@
  </tileset>
  <layer name="Tile Layer 1" width="50" height="50">
   <data encoding="base64" compression="zlib">
-   eJzt2kkLwjAQhuG6K6YHUXDf/f+/0ekhECSBqJl05mMOL/RQ2jxNV2jbNE0L0lF55ui/E3UGcFyoK4jDL2t2hJlDVuaQlTlkZQ5ZcTlu1B3A8aCeAI7aITteSoo5lkGOGgjPfYxZk2NKzQAcc2oB4EA5r8whN3PIyhyySjm49hc+gznjdoTPYM2OWml17Kg9gGOTmA+XqO/xfuuIravBMaRGAI4xNQFw+MxhjtoOyZV0+Huedoe/5/0znu79Yv1D24KOEh0KzTXndZ7abs5xy51r/30j1ZGb/77h/q9rFYlrX2/BGngj
+   eJzt2ssKgzAQheH03tK46Lr3y/s/Y2czEIpCih1z5nQWP7gy+YxGBLuUUkfS0XnhaN9JOhM4LtKVxKHHnh1l4cAqHFiFA6twYGXluEl3AsdDehI4po7Z8XJSn2NflKUZePljzp4ca2lD4NhKOwIHy30VDtzCgVU4sBpyWI1XvoMts3aU72DPjqkKB1bqyAO1nt8v1sODYy4tCBxLaUXg0MKB1T84PDXGoXtea8NYh+55rQ1jHZZ9u9aWz/nQeWuuW+1a6/cNqqM2/b6x/q/r0JPVWG8nEXYG
   </data>
  </layer>
  <layer name="Tile Layer 2" width="50" height="50">
   <data encoding="base64" compression="zlib">
-   eJzt2cENgCAMBVAmUO/uv6cbNIVUUXzvSvnh1DSlNYB3Omc/YLKto/YozszmAXxZttdl6/biPAAAqBbtBaI5NTobzQT4g6gPRnuE0XvZ3QTAqu6YTaPe2vOXB8CzLieYAWs=
+   eJzt2N0KgCAMhmGvoIKC/u7/Pis69stssQnvAx7p1kYwxJQAIKbduwBn3Yuzg3HO0nwA0LLSWVd6rjfOBwAAAFhT7wLqnqr2anMCQAuWc60f4tUcVO8ItXG5vUnEtIQ+YqGPWOjj9sfdVM3d3Pf4H7FE6+O6X4wVa/YoVti8CwAeHFiYA6Q=
   </data>
  </layer>
 </map>
