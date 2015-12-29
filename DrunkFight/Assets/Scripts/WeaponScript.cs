@@ -110,7 +110,8 @@ public class WeaponScript : NetworkBehaviour
     void RpcPunch(GameObject ugh) {
         foreach(Transform child in ugh.transform) {
             if(child.transform.tag == "FISTOFFAME") {
-                child.transform.gameObject.active = true;            }
+                child.transform.gameObject.SetActive(true);
+            }
         }    
     }
 
@@ -124,7 +125,7 @@ public class WeaponScript : NetworkBehaviour
     void RpcFireFire(GameObject ugh) {
         foreach(Transform child in ugh.transform) {
             if(child.transform.tag == "FIREBOMB") {
-                child.transform.gameObject.active = true;
+                child.transform.gameObject.SetActive(true);
             }
         }   
     }
