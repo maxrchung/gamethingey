@@ -13,7 +13,7 @@ public class CameraFollow : NetworkBehaviour {
     int rockingReverse = 1;
     Vector3 velocity = Vector3.zero;
     GameObject player;
-    Camera camera;
+    Camera cam;
 
     void Start()
     {
@@ -24,9 +24,9 @@ public class CameraFollow : NetworkBehaviour {
             if (nb.isLocalPlayer)
             {
                 player = p;
-                camera = GetComponent<Camera>();
-                camera.transform.position = player.transform.position;
-                camera.transform.position += new Vector3(0, 0, -10.0f);
+                cam = GetComponent<Camera>();
+                cam.transform.position = player.transform.position;
+                cam.transform.position += new Vector3(0, 0, -10.0f);
                 lurchTimer = lurchTimerMax;
                 SetLurch();
                 break;
@@ -42,15 +42,15 @@ public class CameraFollow : NetworkBehaviour {
             SetLurch();
             Vector3 targetPos = player.transform.position;
             targetPos += new Vector3(0, 0, -10.0f);
-            Vector3 cameraPos = camera.transform.position;
-            camera.transform.position = Vector3.SmoothDamp(cameraPos, targetPos, ref velocity, dampTime);
-            if (Mathf.Abs(camera.transform.rotation.eulerAngles.z) >= 5 &&
-                Mathf.Abs(camera.transform.rotation.eulerAngles.z) <= 355)
+            Vector3 cameraPos = cam.transform.position;
+            cam.transform.position = Vector3.SmoothDamp(cameraPos, targetPos, ref velocity, dampTime);
+            if (Mathf.Abs(cam.transform.rotation.eulerAngles.z) >= 5 &&
+                Mathf.Abs(cam.transform.rotation.eulerAngles.z) <= 355)
             {
                 rockingReverse *= -1;
             }
-            camera.transform.Rotate(0, 0, rotationDegrees * rockingReverse * Time.deltaTime);
-            camera.transform.position += lurch * Time.deltaTime;
+            cam.transform.Rotate(0, 0, rotationDegrees * rockingReverse * Time.deltaTime);
+            cam.transform.position += lurch * Time.deltaTime;
         }
     }
 

@@ -5,7 +5,7 @@ public class ScreenShake : MonoBehaviour {
     float amount;
     float duration;
     Vector3 originalPos;
-    Camera camera;
+    Camera cam;
     float timer = 0.0f;
 
     // To use ScreenShake, call ScreenShake's Shake from anywhere
@@ -15,8 +15,8 @@ public class ScreenShake : MonoBehaviour {
     {
         amount = shakeAmount;
         duration = shakeDuration;
-        camera = GetComponent<Camera>();
-        originalPos = camera.transform.position;
+        cam = GetComponent<Camera>();
+        originalPos = cam.transform.position;
     }
 
     IEnumerator ShakeCoroutine()
@@ -27,15 +27,15 @@ public class ScreenShake : MonoBehaviour {
 
             int degrees = Random.Range(0, 360);
             Quaternion rotation = Quaternion.Euler(0.0f, 0.0f, degrees);
-            Vector3 direction = new Vector3(Random.Range(0.1f, amount), 0.0f, 0.0f);
+            Vector3 direction = rotation * new Vector3(Random.Range(0.1f, amount), 0.0f, 0.0f);
 
-            camera.transform.position = originalPos + direction;
+            cam.transform.position = originalPos + direction;
             yield return null;
         }
         timer = 0;
 
         // Z-axis shouldn't change
-        originalPos.z = camera.transform.position.z;
-        camera.transform.position = originalPos;
+        originalPos.z = cam.transform.position.z;
+        cam.transform.position = originalPos;
     }
 }
