@@ -5,18 +5,17 @@ public class ItemDropScript : MonoBehaviour {
 
      public int currentItem;
      private float dropTime;
-     public Sprite spawn;
-     public Sprite item1;
-     private SpriteRenderer spriteKun;
      public WeaponScript weaponScript;
+     private Animator animKun;
+     private int lastItem;
      private ParticleSystem part;
      private ParticleEmitter partE;
      private float partTime;
 
 	// Use this for initialization
 	void Start () {
-          spriteKun = GetComponent<SpriteRenderer>();
           currentItem = (int)(UnityEngine.Random.value*100) % 4 + 1;
+          animKun = GetComponent<Animator>();
           part = gameObject.GetComponent<ParticleSystem>();
           partE = gameObject.GetComponent<ParticleEmitter>();
           part.Play();
@@ -37,14 +36,25 @@ public class ItemDropScript : MonoBehaviour {
 
      void LateUpdate()
      {
-          if (currentItem == 0)
-          {
-               spriteKun.sprite = spawn;
+          if(currentItem != lastItem) {
+               if (currentItem == 0) // empty
+               {
+                    animKun.SetInteger("currentItem", 0);
+               }
+               else if(currentItem == 1) { // vomit
+                    animKun.SetInteger("currentItem", 1);
+               }
+               else if(currentItem == 2) { // poop
+                    animKun.SetInteger("currentItem", 2);
+               }
+               else if(currentItem == 3) { // flame
+                    animKun.SetInteger("currentItem", 3);
+               }
+               else if(currentItem == 4) { // heal
+                    animKun.SetInteger("currentItem", 4);
+               }
           }
-          else
-          {
-               spriteKun.sprite = item1;
-          }
+          lastItem = currentItem;
      }
 
      void OnTriggerStay2D(Collider2D other)

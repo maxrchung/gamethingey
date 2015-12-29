@@ -4,17 +4,23 @@ using System.Collections.Generic;
 
 public class Movement : NetworkBehaviour
 {
+    public float moveSpeed = 3.5f;
+    public float turnSpeed = 7.0f;
+    public int moveAccel = 10;
+    public int frictionAccel = 20;
+    public int sidewaysMoveThreshold = 100;
+    public int backwardsMoveThreshold = 145;
+    public float sidewaysMoveFraction = 0.7f;
+    public float backwardsMoveFraction = 0.3f;
+
     private Dictionary<string, Acceleration> accelerations;
-    //public float Speed = 0f;
-    //private float movex = 0f;
-    //private float movey = 0f;
 
     // Use this for initialization
     void Start()
     {
         accelerations = new Dictionary<string, Acceleration>();
-        accelerations.Add("Movement", new Acceleration(null, null, 10));
-        accelerations.Add("Friction", new Acceleration(0.0f, 0.0f, 20));
+        accelerations.Add("Movement", new Acceleration(null, null, moveAccel));
+        accelerations.Add("Friction", new Acceleration(0.0f, 0.0f, frictionAccel));
     }
 
     // Update is called once per frame
@@ -24,20 +30,8 @@ public class Movement : NetworkBehaviour
         {
             return;
         }
-        //GetComponent<Rigidbody2D>().velocity = new Vector2 (movex * Speed, movey * Speed);
-
-        //var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        /*var mousePosition = Input.mousePosition;
-        mousePosition.z = -10.0f;
-        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-        Quaternion rot = Quaternion.LookRotation(transform.position - mousePosition, Vector3.forward);
-
-        transform.rotation = rot;
-        transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z - 180);
-        GetComponent<Rigidbody2D>().angularVelocity = 0;*/
 
         // Rotate player towards mouse
-        float turnSpeed = 7.0f;
         if (Camera.main != null)
         {
             Vector3 pos = Camera.main.WorldToScreenPoint(transform.position);
@@ -50,17 +44,16 @@ public class Movement : NetworkBehaviour
         // Handle movement
         accelerations["Movement"].x = null;
         accelerations["Movement"].y = null;
-        float moveSpeed = 3.5f;
 
         // Scale player's movement speed based on angular difference between player's forward direction and movement direction
         // Effectively walks faster in the facing direction
         Vector3 axis;
         float anglediff;
         Quaternion.FromToRotation(transform.up, GetComponent<Rigidbody2D>().velocity).ToAngleAxis(out anglediff, out axis);
-        if (anglediff > 100)
-            moveSpeed = moveSpeed * 0.7f;
-        else if (anglediff > 145)
-            moveSpeed = moveSpeed * 0.3f;
+        if (anglediff > sidewaysMoveThreshold)
+            moveSpeed = moveSpeed * sidewaysMoveFraction;
+        else if (anglediff > backwardsMoveThreshold)
+            moveSpeed = moveSpeed * backwardsMoveFraction;
 
         if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) && (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S)))
             moveSpeed = moveSpeed / Mathf.Sqrt(2.0f);
