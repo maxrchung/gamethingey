@@ -12,9 +12,11 @@ public class Movement : NetworkBehaviour
     public int backwardsMoveThreshold = 145;
     public float sidewaysMoveFraction = 0.7f;
     public float backwardsMoveFraction = 0.3f;
+    private List<Vector3> spawnLocations = new List<Vector3>();
 
     [SyncVar]
-    public float health = 100.0f;
+    public float startingHealth = 100.0f;
+    private float health;
 
     private Dictionary<string, Acceleration> accelerations;
 
@@ -24,11 +26,18 @@ public class Movement : NetworkBehaviour
     // Use this for initialization
     void Start()
     {
+        health = startingHealth;
         accelerations = new Dictionary<string, Acceleration>();
         accelerations.Add("Movement", new Acceleration(null, null, moveAccel));
         accelerations.Add("Friction", new Acceleration(0.0f, 0.0f, frictionAccel));
         playerId = netId.ToString();
         Debug.Log(playerId);
+
+        GameObject playerStartPositions = GameObject.FindGameObjectWithTag("PlayerStartPositions");
+        foreach (Transform child in playerStartPositions.transform)
+        {
+            spawnLocations.Add(child.position);
+        }
     }
 
     // Update is called once per frame
@@ -128,15 +137,30 @@ public class Movement : NetworkBehaviour
 
     public void ApplyHit (string hitOrigin, float damage, Vector3 knockback, float slow)
     {
-        Debug.Log("Player " + this.playerId + " was hit by an attack from Player " + hitOrigin);
+        //Debug.Log("Player " + this.playerId + " was hit by an attack from Player " + hitOrigin);
         if(isServer) { // && this.playerId != hitOrigin) {
             health -= damage;
+
+            if (health <= 0)
+            {
+                health = startingHealth;
+                RpcRespawn();
+            }
         }
-        Debug.Log("Health: " + health);
+        //Debug.Log("Health: " + health);
 
         //Debug.Log("Hit for " + damage + " damage");
         //Debug.Log("Knocked back for " + knockback);
         //Debug.Log("Slowed by " + slow);
+    }
+
+    [ClientRpc]
+    void RpcRespawn()
+    {
+        if (isLocalPlayer)
+        {
+            transform.position = spawnLocations[Random.Range(0, spawnLocations.Count)];
+        }
     }
 }
 

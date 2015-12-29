@@ -19,10 +19,13 @@ public class attackCharges : MonoBehaviour {
                     mainPlayer = player;
             }
         }
-		int charges = mainPlayer.GetComponent<WeaponScript> ().charges;
-		if (charges == 0)
-			charges = 999;
-		string s = "x"+charges;
-		GetComponent<Text> ().text = s;
+        if (mainPlayer != null)
+        {
+            int charges = mainPlayer.GetComponent<WeaponScript>().charges;
+            if (charges == 0)
+                charges = 999;
+            string s = "x" + charges;
+            GetComponent<Text>().text = s;
+        }
 	}
 }

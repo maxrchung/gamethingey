@@ -33,22 +33,28 @@ public class WeaponSwap : MonoBehaviour {
 					mainPlayer = player;
 				}
 			}
-			Debug.Log("sadface " + mainPlayer);
 		}
-		Sprite currentWep= fist;
-		int weapon = mainPlayer.GetComponent<WeaponScript> ().currentWeapon;
-		if (weapon == 0) {
-			currentWep = fist;
-		} 
-		else if (weapon == 1) {
-			currentWep = vomit;
-		}
-		else if (weapon == 2) {
-			currentWep = poop;
-		}
-		else if (weapon == 3) {
-			currentWep = fire;
-		}
-		GetComponent<Image> ().sprite = currentWep;
+        if (mainPlayer != null)
+        {
+            Sprite currentWep = fist;
+            int weapon = mainPlayer.GetComponent<WeaponScript>().currentWeapon;
+            if (weapon == 0)
+            {
+                currentWep = fist;
+            }
+            else if (weapon == 1)
+            {
+                currentWep = vomit;
+            }
+            else if (weapon == 2)
+            {
+                currentWep = poop;
+            }
+            else if (weapon == 3)
+            {
+                currentWep = fire;
+            }
+            GetComponent<Image>().sprite = currentWep;
+        }
 	}
 }
