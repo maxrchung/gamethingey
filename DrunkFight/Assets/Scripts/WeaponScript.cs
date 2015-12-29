@@ -20,6 +20,11 @@ public class WeaponScript : NetworkBehaviour
 
     public void getWeapon(int weapon)
     {
+        // Not using healing or extra things atm
+        if (weapon >= 4)
+        {
+            weapon = 0;
+        }
         currentWeapon = weapon;
         if (currentWeapon == 1)
         {
@@ -38,10 +43,13 @@ public class WeaponScript : NetworkBehaviour
     void Update()
     {
         if (!isLocalPlayer)
+        {
             return;
+        }
 
         if (Input.GetMouseButtonDown(0) && Time.time > timer)
         {
+            timer = Time.time + vomitDelay;
             if (currentWeapon <= 0)
             {
                 CmdPunch();
@@ -81,7 +89,6 @@ public class WeaponScript : NetworkBehaviour
     [Command]
     void CmdPunch()
     {
-        timer = Time.time + vomitDelay;
         GameObject punchObj = (GameObject)Instantiate(fist);
         punchObj.transform.SetParent(transform, true);
         NetworkServer.Spawn(punchObj);
@@ -90,7 +97,6 @@ public class WeaponScript : NetworkBehaviour
     [Command]
     void CmdFireFire()
     {
-        timer = Time.time + vomitDelay;
         GameObject fireObj = (GameObject)Instantiate(fire, fireSpawnPoint.transform.position, fireSpawnPoint.transform.rotation);
         fireObj.transform.SetParent(transform, true);
         NetworkServer.Spawn(fireObj);
@@ -99,7 +105,6 @@ public class WeaponScript : NetworkBehaviour
     [Command]
     void CmdFireVomit()
     {
-        timer = Time.time + vomitDelay;
         GameObject vomitObj = (GameObject)Instantiate(vomit, transform.position, transform.rotation);
         NetworkServer.Spawn(vomitObj);
     }
@@ -107,7 +112,6 @@ public class WeaponScript : NetworkBehaviour
     [Command]
     void CmdDropPoop()
     {
-        timer = Time.time + vomitDelay;
         GameObject dropObj = (GameObject)Instantiate(poop, transform.position, transform.rotation);
         NetworkServer.Spawn(dropObj);
     }
