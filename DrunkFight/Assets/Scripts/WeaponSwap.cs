@@ -19,7 +19,6 @@ public class WeaponSwap : MonoBehaviour {
 			}
 		}
 
-		Debug.Log(mainPlayer);
 	}
 	
 	// Update is called once per frame

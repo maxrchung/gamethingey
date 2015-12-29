@@ -28,6 +28,10 @@ public class Movement : NetworkBehaviour
     [HideInInspector]
     public string playerId;
 
+    [HideInInspector]
+    [SyncVar]
+    public bool isDead = false;
+    
     // Use this for initialization
     void Start()
     {
@@ -49,6 +53,11 @@ public class Movement : NetworkBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (isDead)
+        {
+            return;
+        }
+
         if (!isLocalPlayer)
         {
             return;
@@ -155,10 +164,11 @@ public class Movement : NetworkBehaviour
             if (health <= 0)
             {
                 health = startingHealth;
+                Debug.Log("Respawning");
                 RpcRespawn();
             }
         }
-        //Debug.Log("Health: " + health);
+        Debug.Log("Health: " + health);
 
         // Apply knockback
         GetComponent<Rigidbody2D>().velocity = knockback;
@@ -177,20 +187,18 @@ public class Movement : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            StartCoroutine("Respawn");
+            transform.position = spawnLocations[Random.Range(0, spawnLocations.Count)];
         }
     }
 
-    IEnumerator Respawn()
+    IEnumerator RespawnPlayer()
     {
-        float resetTimer = respawnTimer;
-        Debug.Log(respawnTimer);
-        while (respawnTimer >= 0) {
-            respawnTimer -= Time.deltaTime;
-            yield return null;
-        }
-        respawnTimer = resetTimer;
+        isDead = true;
+        gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        yield return new WaitForSeconds(respawnTimer);
         transform.position = spawnLocations[Random.Range(0, spawnLocations.Count)];
+        gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        isDead = false;
     }
 }
 

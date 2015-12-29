@@ -36,7 +36,8 @@ public class AttackHitScript : MonoBehaviour
         {
             string hitPlayerId = other.GetComponent<Movement>().playerId;
             if (!hitPlayers.Contains(hitPlayerId) &&
-                (hitPlayerId != playerId || hitsSelf))
+                (hitPlayerId != playerId || hitsSelf) && 
+                !other.GetComponent<Movement>().isDead)
             {
                 hitPlayers.Add(hitPlayerId);
                 Vector3 knockbackForce = (other.transform.position - transform.position).normalized * knockback;
