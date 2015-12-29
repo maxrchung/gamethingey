@@ -22,11 +22,11 @@ public class LobbyManager : NetworkLobbyManager {
 
     void Update()
     {
-        //var players = Network.connections;
-        //for (int i = 0; i < players.Length; ++i)
-        //{
-        //    Debug.Log("Found connection" + i + ": " + players[i].ipAddress);
-        //}
+        var players = Network.connections;
+        for (int i = 0; i < players.Length; ++i)
+        {
+            Debug.Log("Found connection" + i + ": " + players[i].ipAddress);
+        }
     }
 
     public void ChangeTo(RectTransform newPanel)

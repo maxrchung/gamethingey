@@ -13,11 +13,16 @@ public class Movement : NetworkBehaviour
     public float sidewaysMoveFraction = 0.7f;
     public float backwardsMoveFraction = 0.3f;
 
+    [HideInInspector]
+    public uint id;
+
     private Dictionary<string, Acceleration> accelerations;
 
     // Use this for initialization
     void Start()
     {
+        id = netId.Value;
+        Debug.Log("NetID: " + netId.ToString());
         accelerations = new Dictionary<string, Acceleration>();
         accelerations.Add("Movement", new Acceleration(null, null, moveAccel));
         accelerations.Add("Friction", new Acceleration(0.0f, 0.0f, frictionAccel));

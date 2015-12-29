@@ -9,7 +9,7 @@ public class WeaponScript : NetworkBehaviour
     public float vomitDelay;
     public float poopDelay;
     public float flameDelay;
-    private int currentWeapon;
+	public int currentWeapon;
     private float timer = 0;
     public int charges;
     public GameObject vomit;
@@ -49,11 +49,12 @@ public class WeaponScript : NetworkBehaviour
 
         if (Input.GetMouseButtonDown(0) && Time.time > timer)
         {
+            uint id = GetComponent<Movement>().id;
             // Or whatever specific delay you need
             timer = Time.time + vomitDelay;
             if (currentWeapon <= 0)
             {
-                CmdPunch();
+                CmdPunch(id);
             }
             else if (currentWeapon == 1)
             {
@@ -88,11 +89,18 @@ public class WeaponScript : NetworkBehaviour
     }
 
     [Command]
-    void CmdPunch()
+    void CmdPunch(uint netId)
     {
-        GameObject punchObj = (GameObject)Instantiate(fist, fireSpawnPoint.transform.position, fireSpawnPoint.transform.rotation);
-        punchObj.transform.SetParent(transform, true);
-        NetworkServer.Spawn(punchObj);
+        var players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (var player in players)
+        {
+            if (player.GetComponent<Movement>().id == netId) {
+                GameObject punchObj = (GameObject)Instantiate(fist, player.transform.position, player.transform.rotation);
+                punchObj.transform.SetParent(player.transform, true);
+                NetworkServer.Spawn(punchObj);
+                break;
+            }
+        }
     }
 
     [Command]
