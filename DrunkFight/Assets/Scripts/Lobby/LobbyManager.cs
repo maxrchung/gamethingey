@@ -20,6 +20,15 @@ public class LobbyManager : NetworkLobbyManager {
         DontDestroyOnLoad(gameObject);
     }
 
+    void Update()
+    {
+        //var players = Network.connections;
+        //for (int i = 0; i < players.Length; ++i)
+        //{
+        //    Debug.Log("Found connection" + i + ": " + players[i].ipAddress);
+        //}
+    }
+
     public void ChangeTo(RectTransform newPanel)
     {
         if (currentPanel != null)

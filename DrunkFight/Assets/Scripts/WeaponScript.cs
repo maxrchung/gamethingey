@@ -49,6 +49,7 @@ public class WeaponScript : NetworkBehaviour
 
         if (Input.GetMouseButtonDown(0) && Time.time > timer)
         {
+            // Or whatever specific delay you need
             timer = Time.time + vomitDelay;
             if (currentWeapon <= 0)
             {
@@ -89,7 +90,7 @@ public class WeaponScript : NetworkBehaviour
     [Command]
     void CmdPunch()
     {
-        GameObject punchObj = (GameObject)Instantiate(fist);
+        GameObject punchObj = (GameObject)Instantiate(fist, fireSpawnPoint.transform.position, fireSpawnPoint.transform.rotation);
         punchObj.transform.SetParent(transform, true);
         NetworkServer.Spawn(punchObj);
     }
