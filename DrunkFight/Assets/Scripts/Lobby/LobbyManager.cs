@@ -7,9 +7,11 @@ public class LobbyManager : NetworkLobbyManager {
     public RectTransform lobbyPanel;
     public RectTransform connectionPanel;
 
-    protected RectTransform currentPanel;
+    [HideInInspector]
+    public RectTransform currentPanel;
 
-    int numPlayers = 0;
+    [HideInInspector]
+    public bool isHost = false;
 
     void Start()
     {
@@ -31,6 +33,29 @@ public class LobbyManager : NetworkLobbyManager {
         }
 
         currentPanel = newPanel;
+    }
+
+    public override void OnServerSceneChanged(string sceneName)
+    {
+        base.OnServerSceneChanged(sceneName);
+
+        if (sceneName.Equals("TestScene")) 
+        {
+            ChangeTo(connectionPanel);
+        }
+    }
+
+    public override void OnClientSceneChanged(NetworkConnection conn)
+    {
+        base.OnClientSceneChanged(conn);
+        ChangeTo(connectionPanel);
+    }
+
+    public override void OnClientDisconnect(NetworkConnection conn)
+    {
+        base.OnClientDisconnect(conn);
+        StopClient();
+        ChangeTo(mainMenuPanel);
     }
 
     public override void OnStartHost()

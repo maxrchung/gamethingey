@@ -9,18 +9,21 @@ public class LobbyPanel : MonoBehaviour {
     public RectTransform mainPanel;
     public Text playersText;
 
-	// Update is called once per frame
-	void Update () {
+    // Update is called once per frame
+    void Update()
+    {
         if (playersText != null && GameObject.FindGameObjectsWithTag("LobbyPlayer") != null)
         {
             playersText.text = "Players: " + GameObject.FindGameObjectsWithTag("LobbyPlayer").Length;
         }
-	}
+    }
 
     public void OnClickStartGame()
     {
-        lobbyManager.ChangeTo(connectionPanel);
-        lobbyManager.ServerChangeScene(lobbyManager.playScene);
+        if (lobbyManager.isHost)
+        {
+            lobbyManager.ServerChangeScene(lobbyManager.playScene);
+        }
     }
 
     public void OnClickQuitLobby()
@@ -28,5 +31,6 @@ public class LobbyPanel : MonoBehaviour {
         lobbyManager.ChangeTo(mainPanel);
         lobbyManager.StopHost();
         lobbyManager.StopClient();
+        lobbyManager.isHost = false;
     }
 }
