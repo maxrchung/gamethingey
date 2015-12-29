@@ -42,6 +42,7 @@ public class Movement : NetworkBehaviour
         }
 
         // Handle movement
+        float currMoveSpeed = moveSpeed;
         accelerations["Movement"].x = null;
         accelerations["Movement"].y = null;
 
@@ -51,21 +52,21 @@ public class Movement : NetworkBehaviour
         float anglediff;
         Quaternion.FromToRotation(transform.up, GetComponent<Rigidbody2D>().velocity).ToAngleAxis(out anglediff, out axis);
         if (anglediff > sidewaysMoveThreshold)
-            moveSpeed = moveSpeed * sidewaysMoveFraction;
+            currMoveSpeed = currMoveSpeed * sidewaysMoveFraction;
         else if (anglediff > backwardsMoveThreshold)
-            moveSpeed = moveSpeed * backwardsMoveFraction;
+            currMoveSpeed = currMoveSpeed * backwardsMoveFraction;
 
         if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) && (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S)))
-            moveSpeed = moveSpeed / Mathf.Sqrt(2.0f);
+            currMoveSpeed = currMoveSpeed / Mathf.Sqrt(2.0f);
 
         if (Input.GetKey(KeyCode.A))
         {
-            accelerations["Movement"].x = -moveSpeed;
+            accelerations["Movement"].x = -currMoveSpeed;
             accelerations["Friction"].x = null;
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            accelerations["Movement"].x = moveSpeed;
+            accelerations["Movement"].x = currMoveSpeed;
             accelerations["Friction"].x = null;
         }
         else
@@ -76,12 +77,12 @@ public class Movement : NetworkBehaviour
 
         if (Input.GetKey(KeyCode.W))
         {
-            accelerations["Movement"].y = moveSpeed;
+            accelerations["Movement"].y = currMoveSpeed;
             accelerations["Friction"].y = null;
         }
         else if (Input.GetKey(KeyCode.S))
         {
-            accelerations["Movement"].y = -moveSpeed;
+            accelerations["Movement"].y = -currMoveSpeed;
             accelerations["Friction"].y = null;
         }
         else
