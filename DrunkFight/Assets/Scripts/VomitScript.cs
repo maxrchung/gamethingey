@@ -32,8 +32,5 @@ public class VomitScript : MonoBehaviour {
           {
                Destroy(gameObject);
           }
-
-          Debug.Log("dolan");
-          Debug.Log(other.tag);
      }
 }
