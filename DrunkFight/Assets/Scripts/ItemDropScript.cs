@@ -10,6 +10,7 @@ public class ItemDropScript : MonoBehaviour {
      private SpriteRenderer spriteKun;
      public WeaponScript weaponScript;
      private ParticleSystem part;
+     private ParticleEmitter partE;
      private float partTime;
 
 	// Use this for initialization
@@ -17,6 +18,8 @@ public class ItemDropScript : MonoBehaviour {
           spriteKun = GetComponent<SpriteRenderer>();
           currentItem = (int)(UnityEngine.Random.value*100) % 4 + 1;
           part = gameObject.GetComponent<ParticleSystem>();
+          partE = gameObject.GetComponent<ParticleEmitter>();
+          part.Play();
 	}
 	
 	// Update is called once per frame
@@ -28,6 +31,7 @@ public class ItemDropScript : MonoBehaviour {
           if (Time.time - partTime >= 0.3f)
           {
                part.Stop();
+               part.Clear();
           }
 	}
 
@@ -49,19 +53,20 @@ public class ItemDropScript : MonoBehaviour {
           {
                if (currentItem != 0)
                {
+                    //part.Simulate(0.0f, true, true);
+                    //Debug.Log(part.IsAlive());
                     weaponScript = other.GetComponent<WeaponScript>();
                     weaponScript.getWeapon(currentItem);
-                    takeItem();
+                    currentItem = 0;
+                    part.Play();
+                    Debug.Log(part.isPlaying);
+                    dropTime = Time.time;
+                    partTime = Time.time;
                }
           }
      }
 
      void takeItem()
      {
-          part.Play();
-          currentItem = 0;
-          dropTime = Time.time;
-          partTime = Time.time;
-          
      }
 }
