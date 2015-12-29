@@ -92,6 +92,7 @@ public class WeaponScript : NetworkBehaviour
     void CmdPunch()
     {
         GameObject punchObj = (GameObject)Instantiate(fist);
+        punchObj.GetComponent<AttackHitScript>().setPlayerId(Network.player.ToString());
         punchObj.transform.SetParent(transform, true);
         NetworkServer.Spawn(punchObj);
     }
@@ -100,6 +101,7 @@ public class WeaponScript : NetworkBehaviour
     void CmdFireFire()
     {
         GameObject fireObj = (GameObject)Instantiate(fire, fireSpawnPoint.transform.position, fireSpawnPoint.transform.rotation);
+        fireObj.GetComponent<AttackHitScript>().setPlayerId(Network.player.ToString());
         fireObj.transform.SetParent(transform, true);
         NetworkServer.Spawn(fireObj);
     }
@@ -108,6 +110,7 @@ public class WeaponScript : NetworkBehaviour
     void CmdFireVomit()
     {
         GameObject vomitObj = (GameObject)Instantiate(vomit, transform.position, transform.rotation);
+        vomitObj.GetComponent<AttackHitScript>().setPlayerId(Network.player.ToString());
         NetworkServer.Spawn(vomitObj);
     }
 
@@ -115,6 +118,7 @@ public class WeaponScript : NetworkBehaviour
     void CmdDropPoop()
     {
         GameObject dropObj = (GameObject)Instantiate(poop, transform.position, transform.rotation);
+        dropObj.GetComponent<AttackHitScript>().setPlayerId(Network.player.ToString());
         NetworkServer.Spawn(dropObj);
     }
 }

@@ -14,6 +14,7 @@ public class Movement : NetworkBehaviour
     public float backwardsMoveFraction = 0.3f;
 
     private Dictionary<string, Acceleration> accelerations;
+    private string playerId;
 
     // Use this for initialization
     void Start()
@@ -21,6 +22,7 @@ public class Movement : NetworkBehaviour
         accelerations = new Dictionary<string, Acceleration>();
         accelerations.Add("Movement", new Acceleration(null, null, moveAccel));
         accelerations.Add("Friction", new Acceleration(0.0f, 0.0f, frictionAccel));
+        playerId = Network.player.ToString();
     }
 
     // Update is called once per frame
@@ -114,8 +116,9 @@ public class Movement : NetworkBehaviour
             GetComponent<Animator>().SetBool("Moving", true);
     }
 
-    public void ApplyHit(float damage, Vector3 knockback, float slow)
+    public void ApplyHit (string playerId, float damage, Vector3 knockback, float slow)
     {
+        Debug.Log("Player " + this.playerId + " was hit by an attack from " + playerId);
         Debug.Log("Hit for " + damage + " damage");
         Debug.Log("Knocked back for " + knockback);
         Debug.Log("Slowed by " + slow);
