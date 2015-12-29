@@ -24,6 +24,7 @@ public class WeaponScript : NetworkBehaviour
         if (weapon >= 4)
         {
             weapon = 0;
+			charges = 999;
         }
         currentWeapon = weapon;
         if (currentWeapon == 1)
@@ -82,6 +83,7 @@ public class WeaponScript : NetworkBehaviour
         if (charge <= 0)
         {
             currentWeapon = 0;
+			charges = 999;
         }
         return charge;
     }
