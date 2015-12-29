@@ -119,9 +119,9 @@ public class Movement : NetworkBehaviour
     public void ApplyHit (string playerId, float damage, Vector3 knockback, float slow)
     {
         Debug.Log("Player " + this.playerId + " was hit by an attack from Player " + playerId);
-        Debug.Log("Hit for " + damage + " damage");
-        Debug.Log("Knocked back for " + knockback);
-        Debug.Log("Slowed by " + slow);
+        //Debug.Log("Hit for " + damage + " damage");
+        //Debug.Log("Knocked back for " + knockback);
+        //Debug.Log("Slowed by " + slow);
     }
 }
 
