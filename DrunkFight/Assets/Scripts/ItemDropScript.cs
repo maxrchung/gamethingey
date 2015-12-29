@@ -23,7 +23,10 @@ public class ItemDropScript : NetworkBehaviour
     {
         if (currentItem == 0 && Time.time - dropTime > 3)
         {
-            currentItem = (int)(UnityEngine.Random.value * 100) % 4 + 1;
+            if (isServer)
+            {
+                currentItem = (int)(UnityEngine.Random.value * 100) % 4 + 1;
+            }
         }
     }
 
