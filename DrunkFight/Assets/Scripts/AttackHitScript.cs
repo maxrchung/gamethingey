@@ -15,6 +15,7 @@ public class AttackHitScript : MonoBehaviour
 
     private void OnTriggerEnter2D (Collider2D other)
     {
+        Debug.Log(other.gameObject.transform.tag);
         if (other.tag == "Player")
         {
             Vector3 knockbackForce = (other.transform.position - transform.position).normalized * knockback;

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
 
@@ -17,6 +17,17 @@ public class WeaponScript : NetworkBehaviour
     public GameObject poop;
     public GameObject fist;
     public GameObject fireSpawnPoint;
+
+    void Start() {
+        foreach(Transform child in gameObject.transform) {
+            if(child.transform.tag == "FIREBOMB") {
+                child.GetComponent<AttackHitScript>().setPlayerId(netId.ToString());
+            }
+            else if(child.transform.tag == "FISTOFFAME") {
+                child.GetComponent<AttackHitScript>().setPlayerId(netId.ToString());
+            }
+        }  
+    }
 
     public void getWeapon(int weapon)
     {
@@ -98,7 +109,6 @@ public class WeaponScript : NetworkBehaviour
     [ClientRpc]
     void RpcPunch(GameObject ugh) {
         foreach(Transform child in ugh.transform) {
-            Debug.Log(child.transform.tag);
             if(child.transform.tag == "FISTOFFAME") {
                 child.transform.gameObject.active = true;            }
         }    
@@ -113,7 +123,6 @@ public class WeaponScript : NetworkBehaviour
     [ClientRpc]
     void RpcFireFire(GameObject ugh) {
         foreach(Transform child in ugh.transform) {
-            Debug.Log(child.transform.tag);
             if(child.transform.tag == "FIREBOMB") {
                 child.transform.gameObject.active = true;
             }
@@ -124,7 +133,7 @@ public class WeaponScript : NetworkBehaviour
     void CmdFireVomit()
     {
         GameObject vomitObj = (GameObject)Instantiate(vomit, transform.position, transform.rotation);
-        vomitObj.GetComponent<AttackHitScript>().setPlayerId(Network.player.ToString());
+        vomitObj.GetComponent<AttackHitScript>().setPlayerId(netId.ToString());
         NetworkServer.Spawn(vomitObj);
     }
 
@@ -132,7 +141,7 @@ public class WeaponScript : NetworkBehaviour
     void CmdDropPoop()
     {
         GameObject dropObj = (GameObject)Instantiate(poop, transform.position, transform.rotation);
-        dropObj.GetComponent<AttackHitScript>().setPlayerId(Network.player.ToString());
+        dropObj.GetComponent<AttackHitScript>().setPlayerId(netId.ToString());
         NetworkServer.Spawn(dropObj);
     }
 }

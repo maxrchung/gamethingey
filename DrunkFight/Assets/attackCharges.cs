@@ -15,10 +15,11 @@ public class attackCharges : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		int charges = mainPlayer.GetComponent<WeaponScript> ().charges;
+		/*int charges = mainPlayer.GetComponent<WeaponScript> ().charges;
 		if (charges == 0)
 			charges = 999;
 		string s = "x"+charges;
 		GetComponent<Text> ().text = s;
+		*/
 	}
 }

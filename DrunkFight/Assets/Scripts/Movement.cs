@@ -13,8 +13,13 @@ public class Movement : NetworkBehaviour
     public float sidewaysMoveFraction = 0.7f;
     public float backwardsMoveFraction = 0.3f;
 
+    [SyncVar]
+    public int health = 100;
+
     private Dictionary<string, Acceleration> accelerations;
-    private string playerId;
+
+    [HideInInspector]
+    public string playerId;
 
     // Use this for initialization
     void Start()
@@ -23,6 +28,7 @@ public class Movement : NetworkBehaviour
         accelerations.Add("Movement", new Acceleration(null, null, moveAccel));
         accelerations.Add("Friction", new Acceleration(0.0f, 0.0f, frictionAccel));
         playerId = netId.ToString();
+        Debug.Log(playerId);
     }
 
     // Update is called once per frame
@@ -31,6 +37,10 @@ public class Movement : NetworkBehaviour
         if (!isLocalPlayer)
         {
             return;
+        }
+
+        if(isClient) {
+            //Debug.Log(playerId + " " + health);
         }
 
         // Rotate player towards mouse
@@ -116,9 +126,13 @@ public class Movement : NetworkBehaviour
             GetComponent<Animator>().SetBool("Moving", true);
     }
 
-    public void ApplyHit (string playerId, float damage, Vector3 knockback, float slow)
+    public void ApplyHit (string hitOrigin, float damage, Vector3 knockback, float slow)
     {
-        Debug.Log("Player " + this.playerId + " was hit by an attack from Player " + playerId);
+        //Debug.Log("Player " + this.playerId + " was hit by an attack from Player " + hitOrigin);
+        if(!isServer && this.playerId != hitOrigin) {
+            health -= 10;
+        }
+
         //Debug.Log("Hit for " + damage + " damage");
         //Debug.Log("Knocked back for " + knockback);
         //Debug.Log("Slowed by " + slow);

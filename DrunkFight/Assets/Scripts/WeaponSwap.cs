@@ -11,15 +11,30 @@ public class WeaponSwap : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		Debug.Log("Wat");
 		foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
 		{
-			if (player.GetComponent<Movement>().isLocalPlayer)
+			Debug.Log(player.GetComponent<Movement>().netId.ToString());
+			if (player.GetComponent<Movement>().isLocalPlayer) {
 				mainPlayer = player;
+			}
 		}
+
+		Debug.Log(mainPlayer);
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if(mainPlayer == null) {
+			foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
+			{
+				Debug.Log(player.GetComponent<Movement>().netId.ToString());
+				if (player.GetComponent<Movement>().isLocalPlayer) {
+					mainPlayer = player;
+				}
+			}
+			Debug.Log("sadface " + mainPlayer);
+		}
 		Sprite currentWep= fist;
 		int weapon = mainPlayer.GetComponent<WeaponScript> ().currentWeapon;
 		if (weapon == 0) {
