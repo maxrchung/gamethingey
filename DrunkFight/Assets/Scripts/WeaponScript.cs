@@ -10,26 +10,26 @@ public class WeaponScript : MonoBehaviour
      public float flameDelay;
      private int currentWeapon;
      private float timer = 0;
-     public int poopCharges;
-     public int fireCharges;
-     public int vomitCharges;
+	public int charges;
      public GameObject vomit;
      public GameObject fire;
      public GameObject poop;
+	public GameObject fist;
      public GameObject fireSpawnPoint;
+	 
 
      public void getWeapon(int weapon)
      {
           currentWeapon = weapon;
           if(currentWeapon == 1) {
-               vomitCharges = 10;
+               charges = 10;
           }
           if (currentWeapon == 2)
           {
-               poopCharges = 2;
+               charges = 2;
           }
           else if(currentWeapon == 3) {
-               fireCharges =  5;
+               charges =  5;
           }
      }
 
@@ -40,21 +40,21 @@ public class WeaponScript : MonoBehaviour
 
                if (currentWeapon <= 0)
                {
-
+					punch ();
                }
                else if (currentWeapon == 1)
                {   
                     fireVomit();
-                    vomitCharges = decreaseCharge(vomitCharges);
+                    charges = decreaseCharge(charges);
                }
                else if (currentWeapon == 2)
                {
                     dropPoop();
-                    poopCharges = decreaseCharge(poopCharges);
+                    charges = decreaseCharge(charges);
                }
                else if(currentWeapon == 3) {
                     fireFire();
-                    fireCharges = decreaseCharge(fireCharges);
+                    charges = decreaseCharge(charges);
                }
                else if (currentWeapon >= 4)
                {
@@ -71,6 +71,11 @@ public class WeaponScript : MonoBehaviour
           return charge;
      }
 
+	void punch(){
+		timer = Time.time + vomitDelay;
+		GameObject punchObj = (GameObject) Instantiate(fist);
+		punchObj.transform.SetParent(transform,true);
+	}
      void fireFire() {
           timer = Time.time + vomitDelay;
           GameObject fireObj = (GameObject) Instantiate(fire, fireSpawnPoint.transform.position, fireSpawnPoint.transform.rotation);

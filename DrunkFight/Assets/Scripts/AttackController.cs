@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class FireController : MonoBehaviour {
-
+public class AttackController : MonoBehaviour {
+	public string animName;
 	// Use this for initialization
 	void Start () {
 	
@@ -12,8 +12,9 @@ public class FireController : MonoBehaviour {
 	void Update () {
 		AnimatorStateInfo asi = GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
 
-		if(!asi.IsName("FireStream") || asi.normalizedTime >= 1) {
+		if(!asi.IsName(animName) || asi.normalizedTime >= 1) {
 			Destroy(gameObject);
 		}
+
 	}
 }
