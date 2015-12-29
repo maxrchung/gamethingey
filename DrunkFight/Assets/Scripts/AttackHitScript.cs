@@ -13,12 +13,12 @@ public class AttackHitScript : MonoBehaviour
         this.playerId = playerId;
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnTriggerEnter2D (Collider2D other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.tag == "Player")
         {
             Vector3 knockbackForce = (other.transform.position - transform.position).normalized * knockback;
-            other.gameObject.GetComponent<Movement>().ApplyHit(playerId, damage, knockbackForce, slow);
+            other.GetComponent<Movement>().ApplyHit(playerId, damage, knockbackForce, slow);
         }
     }
 }
