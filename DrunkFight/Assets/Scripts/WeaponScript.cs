@@ -52,7 +52,11 @@ public class WeaponScript : NetworkBehaviour
             timer = Time.time + vomitDelay;
             if (currentWeapon <= 0)
             {
-                CmdPunch();
+                    CmdPunch(gameObject);
+   
+                Debug.Log("AHHH");
+                
+                
             }
             else if (currentWeapon == 1)
             {
@@ -87,11 +91,20 @@ public class WeaponScript : NetworkBehaviour
     }
 
     [Command]
-    void CmdPunch()
+    void CmdPunch(GameObject par)
     {
-        GameObject punchObj = (GameObject)Instantiate(fist);
-        punchObj.transform.SetParent(transform, true);
-        NetworkServer.Spawn(punchObj);
+        RpcPunch(gameObject);
+    }
+
+    [ClientRpc]
+    void RpcPunch(GameObject ugh) {
+        foreach(Transform child in ugh.transform) {
+            Debug.Log(child.transform.tag);
+            if(child.transform.tag == "FISTOFFAME") {
+                child.transform.gameObject.active = true;
+                Debug.Log("WTF");
+            }
+        }    
     }
 
     [Command]
@@ -99,6 +112,7 @@ public class WeaponScript : NetworkBehaviour
     {
         GameObject fireObj = (GameObject)Instantiate(fire, fireSpawnPoint.transform.position, fireSpawnPoint.transform.rotation);
         fireObj.transform.SetParent(transform, true);
+        Debug.Log("FIRE");
         NetworkServer.Spawn(fireObj);
     }
 
