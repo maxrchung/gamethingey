@@ -14,7 +14,7 @@ public class Movement : NetworkBehaviour
     public float backwardsMoveFraction = 0.3f;
 
     [SyncVar]
-    public int health = 100;
+    public float health = 100.0f;
 
     private Dictionary<string, Acceleration> accelerations;
 
@@ -128,10 +128,11 @@ public class Movement : NetworkBehaviour
 
     public void ApplyHit (string hitOrigin, float damage, Vector3 knockback, float slow)
     {
-        //Debug.Log("Player " + this.playerId + " was hit by an attack from Player " + hitOrigin);
-        if(!isServer && this.playerId != hitOrigin) {
-            health -= 10;
+        Debug.Log("Player " + this.playerId + " was hit by an attack from Player " + hitOrigin);
+        if(isServer) { // && this.playerId != hitOrigin) {
+            health -= damage;
         }
+        Debug.Log("Health: " + health);
 
         //Debug.Log("Hit for " + damage + " damage");
         //Debug.Log("Knocked back for " + knockback);

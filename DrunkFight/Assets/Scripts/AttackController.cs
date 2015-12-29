@@ -15,6 +15,5 @@ public class AttackController : MonoBehaviour {
 		if(!asi.IsName(animName) || asi.normalizedTime >= 1) {
             gameObject.SetActive(false);
 		}
-
 	}
 }
