@@ -69,7 +69,7 @@ public class Movement : NetworkBehaviour
 			return false;
 		GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 		foreach (GameObject player in players) {
-			if (player.GetComponent<Movement> ().playerId = playerId) {
+			if (player.GetComponent<Movement> ().playerId == playerId) {
 				if (!player.GetComponent<Movement> ().isDead) {
 					return false;
 				}
