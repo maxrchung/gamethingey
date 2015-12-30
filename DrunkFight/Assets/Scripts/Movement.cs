@@ -21,7 +21,7 @@ public class Movement : NetworkBehaviour
 
     [SyncVar]
     public float startingHealth = 100.0f;
-    private float health;
+    public float health;
 
     private Dictionary<string, Acceleration> accelerations;
 
