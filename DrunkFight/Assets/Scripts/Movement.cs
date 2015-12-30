@@ -21,13 +21,12 @@ public class Movement : NetworkBehaviour
     private List<Vector3> spawnLocations = new List<Vector3>();
     public float respawnTimer = 3.0f;
 
-    private int immacheater2;
-
     private float slowCounter;
     private float slow;
 
     [SyncVar]
     public float startingHealth = 100.0f;
+	[SyncVar]
     public float health;
 	[SyncVar]
 	public int numDrinks=5;
@@ -40,8 +39,6 @@ public class Movement : NetworkBehaviour
     [HideInInspector]
     [SyncVar]
     public bool isDead = false;
-
-    private bool immacheater;
 
     private GameObject playerStartPositions;
     
@@ -64,8 +61,6 @@ public class Movement : NetworkBehaviour
                   spawnLocations.Add(child.position);
              }
         }
-        immacheater = true;
-        immacheater2 = 10;
     }
 
 	bool winner()
@@ -102,13 +97,6 @@ public class Movement : NetworkBehaviour
 		{
 			Debug.Log ("WWFOIEIJOWEIO");
 		}
-        if(immacheater) {
-            CmdRespawn();
-            immacheater2--;
-            if(immacheater2 == 0) {
-                immacheater = false;
-            }
-        }
         if (isDead)
         {
             return;
