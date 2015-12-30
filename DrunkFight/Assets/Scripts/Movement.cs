@@ -25,10 +25,10 @@ public class Movement : NetworkBehaviour
 
     [SyncVar]
     public float startingHealth = 100.0f;
-	[SyncVar]
+    [SyncVar]
     public float health;
-	[SyncVar]
-	public int numDrinks=5;
+    [SyncVar]
+    public int numDrinks = 5;
 
     private Dictionary<string, Acceleration> accelerations;
 
@@ -42,7 +42,7 @@ public class Movement : NetworkBehaviour
     private float startTime;
 
     private GameObject playerStartPositions;
-    
+
     // Use this for initialization
     void Start()
     {
@@ -57,66 +57,70 @@ public class Movement : NetworkBehaviour
         playerStartPositions = GameObject.FindGameObjectWithTag("PlayerStartPositions");
         if (playerStartPositions != null)
         {
-             foreach (Transform child in playerStartPositions.transform)
-             {
-                  spawnLocations.Add(child.position);
-             }
+            foreach (Transform child in playerStartPositions.transform)
+            {
+                spawnLocations.Add(child.position);
+            }
         }
         startTime = Time.time;
     }
 
-	bool winner()
-	{        
-		if (isLocalPlayer) {
-			
-			if (isDead)
-				return false;
-			GameObject[] players = GameObject.FindGameObjectsWithTag ("Player");
-			if (players.Length <= 1) {
-				Debug.Log ("FUCKING1perns");
-				return false;
-			}
-			foreach (GameObject player in players) {
-				if (player.GetComponent<Movement> ().playerId != playerId) {
-					if (!player.GetComponent<Movement> ().isDead) {
-						Debug.Log ("ALIVE FUCKERS");
-						return false;
-					}
-				}
-			}
-			var canvas = GameObject.FindGameObjectWithTag ("Canvas");
-			foreach (Transform child in canvas.transform) {
-				if (child.tag != "EndGameStatus") {
-					child.gameObject.SetActive (false);
-				} else {
-					child.gameObject.SetActive (true);
-					child.gameObject.GetComponent<Text> ().text = "YOU WIN!";
-				}
-			}
-			return true;
-		}
+    void winner()
+    {
+        if (!isLocalPlayer)
+            return;
 
-		return false;
-	}
+        if (isDead)
+            return;
 
-	// Update is called once per frame
-	void FixedUpdate()
-	{
-          if (playerStartPositions == null)
-          {
-               playerStartPositions = GameObject.FindGameObjectWithTag("PlayerStartPositions");
-               if (playerStartPositions != null)
-               {
-                    foreach (Transform child in playerStartPositions.transform)
-                    {
-                         spawnLocations.Add(child.position);
-                    }
-               }
-          }
-		if(winner())
-		{
-			Debug.Log ("WWFOIEIJOWEIO");
-		}
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        Debug.Log("Number of players: " + players.Length);
+        if (players.Length == 1)
+        {
+            Debug.Log("FUCKING1perns");
+            var canvas = GameObject.FindGameObjectWithTag("Canvas");
+            foreach (Transform child in canvas.transform)
+            {
+                if (child.tag != "EndGameStatus")
+                {
+                    child.gameObject.SetActive(false);
+                }
+                else
+                {
+                    child.gameObject.SetActive(true);
+                    child.gameObject.GetComponent<Text>().text = "YOU WIN!";
+                }
+            }
+        }
+    }
+
+    bool wefoundtwoplayers = false;
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+
+        if (playerStartPositions == null)
+        {
+            playerStartPositions = GameObject.FindGameObjectWithTag("PlayerStartPositions");
+            if (playerStartPositions != null)
+            {
+                foreach (Transform child in playerStartPositions.transform)
+                {
+                    spawnLocations.Add(child.position);
+                }
+            }
+        }
+
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        if (players.Length >= 2)
+        {
+            wefoundtwoplayers = true;
+        }
+        if (wefoundtwoplayers)
+        {
+            winner();
+        }
+
         if (isDead)
         {
             return;
@@ -127,11 +131,13 @@ public class Movement : NetworkBehaviour
             return;
         }
 
-        if(isClient) {
+        if (isClient)
+        {
             //Debug.Log(playerId + " " + health);
         }
         //DRAIN
-        if(Time.time - startTime >= 1) {
+        if (Time.time - startTime >= 1)
+        {
             health -= 2;
             startTime = Time.time;
 
@@ -225,38 +231,44 @@ public class Movement : NetworkBehaviour
             GetComponent<Animator>().SetBool("Moving", true);
     }
 
-    public void ApplyHit (string hitOrigin, float damage, Vector3 knockback, float slow, float slowDuration)
+    public void ApplyHit(string hitOrigin, float damage, Vector3 knockback, float slow, float slowDuration)
     {
         if (isLocalPlayer && isClient)
         {
             GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ScreenShake>().Shake();
         }
         //Debug.Log("Player " + this.playerId + " was hit by an attack from Player " + hitOrigin);
-        if(isServer) {
+        if (isServer)
+        {
             health -= damage;
 
             if (health <= 0)
             {
                 GetComponent<WeaponScript>().SwitchToPunch();
-				int donated = numDrinks / 2 + 1;
-				GameObject killer;
-				GameObject[] players = GameObject.FindGameObjectsWithTag ("Player");
-				foreach (GameObject p in players) {
-					if (p.GetComponent<Movement> ().playerId == hitOrigin) {
-						p.GetComponent<Movement> ().numDrinks += donated;
-						break;
-					}
-				}
-				if (donated >= numDrinks) {
-					//Lose Here
+                int donated = numDrinks / 2 + 1;
+                GameObject killer;
+                GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+                foreach (GameObject p in players)
+                {
+                    if (p.GetComponent<Movement>().playerId == hitOrigin)
+                    {
+                        p.GetComponent<Movement>().numDrinks += donated;
+                        break;
+                    }
+                }
+                if (donated >= numDrinks)
+                {
+                    //Lose Here
 
                     CmdLoseGame(playerId);
                     isDead = true;
                     //GameObject.FindGameObjectWithTag("MainPanel").GetComponent<ConnectionPanel>().OnClickQuitGame();
-					Debug.Log("Death");
-				} else {
-					numDrinks -= donated;
-				}
+                    Debug.Log("Death");
+                }
+                else
+                {
+                    numDrinks -= donated;
+                }
 
                 if (!isDead)
                 {
@@ -264,7 +276,8 @@ public class Movement : NetworkBehaviour
                     //Debug.Log("Respawning");
                     RpcRespawn();
                     Debug.Log(numDrinks);
-                }            }
+                }
+            }
         }
         Debug.Log("Health: " + health);
 
@@ -300,7 +313,8 @@ public class Movement : NetworkBehaviour
         if (isLocalPlayer)
         {
             var canvas = GameObject.FindGameObjectWithTag("Canvas");
-            foreach(Transform child in canvas.transform) {
+            foreach (Transform child in canvas.transform)
+            {
                 if (child.tag != "EndGameStatus")
                 {
                     child.gameObject.SetActive(false);
@@ -314,7 +328,8 @@ public class Movement : NetworkBehaviour
     }
 
     [Command]
-    void CmdRespawn() {
+    void CmdRespawn()
+    {
         RpcRespawn();
     }
 
