@@ -249,6 +249,7 @@ public class Movement : NetworkBehaviour
 
             if (health <= 0)
             {
+                GameObject.FindWithTag("AudioMaster").GetComponent<AudioMasterScript>().PlayDeathSound();
                 int donated = numDrinks *  3 / 4 + 1;
                 GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
                 foreach (GameObject p in players)
