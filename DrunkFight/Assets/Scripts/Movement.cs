@@ -28,9 +28,9 @@ public class Movement : NetworkBehaviour
 
     [SyncVar]
     public float startingHealth = 100.0f;
-
-    [SyncVar]
     public float health;
+	[SyncVar]
+	public int numDrinks=5;
 
     private Dictionary<string, Acceleration> accelerations;
 
@@ -177,18 +177,38 @@ public class Movement : NetworkBehaviour
 
     public void ApplyHit (string hitOrigin, float damage, Vector3 knockback, float slow, float slowDuration)
     {
+        if (isLocalPlayer && isClient)
+        {
+            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ScreenShake>().Shake();
+        }
         //Debug.Log("Player " + this.playerId + " was hit by an attack from Player " + hitOrigin);
         if(isServer) {
             health -= damage;
 
             if (health <= 0)
             {
+				int donated = numDrinks / 2 + 1;
+				GameObject killer;
+				GameObject[] players = GameObject.FindGameObjectsWithTag ("Player");
+				foreach (GameObject p in players) {
+					if (p.GetComponent<Movement> ().playerId == hitOrigin) {
+						p.GetComponent<Movement> ().numDrinks += donated;
+						break;
+					}
+				}
+				if (donated > numDrinks) {
+					//Lose Here
+					Destroy(transform.parent.gameObject);
+				} else {
+					numDrinks -= donated;
+				}
                 health = startingHealth;
                 //Debug.Log("Respawning");
                 RpcRespawn();
+				Debug.Log (numDrinks);
             }
         }
-        //Debug.Log("Health: " + health);
+        Debug.Log("Health: " + health);
 
         // Apply knockback
         GetComponent<Rigidbody2D>().velocity = knockback;

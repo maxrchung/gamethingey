@@ -33,11 +33,12 @@ public class WeaponScript : NetworkBehaviour
     {
         // Not using healing or extra things atm
 		if (weapon >= 4) {
-			
+			GetComponent<Movement> ().numDrinks += 2;
 			heal (.5f);
 			weapon = 0;
 			charges = 999;
 		} else {
+			GetComponent<Movement> ().numDrinks++;
 			heal (.1f);
 		}
         currentWeapon = weapon;
