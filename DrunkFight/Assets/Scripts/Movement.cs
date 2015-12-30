@@ -60,7 +60,7 @@ public class Movement : NetworkBehaviour
             spawnLocations.Add(child.position);
         }
         immacheater = true;
-        immacheater2 = 2;
+        immacheater2 = 10;
     }
 
     // Update is called once per frame
