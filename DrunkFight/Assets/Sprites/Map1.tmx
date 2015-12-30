@@ -105,14 +105,32 @@
    </objectgroup>
   </tile>
  </tileset>
+ <tileset firstgid="21" name="floorRailingL" tilewidth="64" tileheight="64" tilecount="1">
+  <image source="floorRailingL.png" width="64" height="64"/>
+  <tile id="0">
+   <objectgroup draworder="index">
+    <object id="0" x="0" y="48" width="64" height="16"/>
+   </objectgroup>
+  </tile>
+ </tileset>
+ <tileset firstgid="22" name="table4" tilewidth="256" tileheight="256" tilecount="1">
+  <image source="table4.png" width="256" height="256"/>
+  <tile id="0">
+   <objectgroup draworder="index">
+    <object id="0" x="192" y="0">
+     <polyline points="0,0 64,64 64,192 0,256 -128,256 -192,192 -192,64 -128,0 0,0 64,64"/>
+    </object>
+   </objectgroup>
+  </tile>
+ </tileset>
  <layer name="Tile Layer 1" width="34" height="34">
   <data encoding="base64" compression="zlib">
-   eJzll9kKgCAQRe0l2vf//9amh4GI3JduKpyHRO0wXgZshBANCNWN/fF90RLdy7yMtzNqxXpTj54YEnscxOrJZuEs8/iCEj1s81GChwyVBw/T/+jWu9YDxSMlJXuMxPShB+djJpYAHjxcPULdC4qHz7249LFY+UCoB4KHipR9/e8eueYDyYN5zqPVQ9XrZPt1e0zPySEftu9dHa4etu/dWB6hQcsHAifmpAsO
+   eJztl0sOgCAMBXFj8O/9T2s33ZjQNljgiZLMRkEn7UsTYgghgjAoTMRs2CcxCu+sHguxAniU5vdo54GSDySPFJIHL+t/tP259UDxqMmXPTZib+jB+TiI08GDV66HV19QPJ70JWeOlcoHQj0QPCRqzvW3e/SaDyQP5v4crR7SrEud185Yv9NDPjzuux4eHvfdVn1B8bDkA4ELiB8Jog==
   </data>
  </layer>
  <layer name="Tile Layer 2" width="34" height="34">
   <data encoding="base64" compression="zlib">
-   eJzt1TEKACAMA8CCiv//sW/oULRytwU6ZAmNAOB3M3m/SlpAb+N2AXhQdhfZfwRQZRfnDg7krAA+
+   eJzt1b0KACAIhVGhorkfev9HrbVRSkr4DjgIF7mbIn9q3Nj0NeVw6oUeAHyKynwyaQH4Nl4XAD4UlHntPwIAK9l492ACVOYB0w==
   </data>
  </layer>
 </map>

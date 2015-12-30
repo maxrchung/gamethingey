@@ -160,14 +160,44 @@
    </objectgroup>
   </tile>
  </tileset>
+ <tileset firstgid="37" name="table4" tilewidth="256" tileheight="256" tilecount="1">
+  <image source="table4.png" width="256" height="256"/>
+  <tile id="0">
+   <objectgroup draworder="index">
+    <object id="0" x="192" y="0">
+     <polyline points="0,0 64,64 64,192 0,256 -128,256 -192,192 -192,64 -128,0 0,0 64,64"/>
+    </object>
+   </objectgroup>
+  </tile>
+ </tileset>
+ <tileset firstgid="38" name="Toilet2" tilewidth="64" tileheight="64" tilecount="1">
+  <image source="Toilet2.png" width="64" height="64"/>
+  <tile id="0">
+   <objectgroup draworder="index">
+    <object id="0" x="64" y="32">
+     <polyline points="0,0 0,-16 -48,-16 -48,-32 -64,-32 -64,32 -48,32 -48,16 0,16 0,0 0,-16"/>
+    </object>
+   </objectgroup>
+  </tile>
+ </tileset>
+ <tileset firstgid="39" name="urinal2" tilewidth="64" tileheight="64" tilecount="1">
+  <image source="urinal2.png" width="64" height="64"/>
+  <tile id="0">
+   <objectgroup draworder="index">
+    <object id="0" x="0" y="64">
+     <polyline points="0,0 16,0 48,-32 16,-64 0,-64 0,0 16,0"/>
+    </object>
+   </objectgroup>
+  </tile>
+ </tileset>
  <layer name="Tile Layer 1" width="50" height="50">
   <data encoding="base64" compression="zlib">
-   eJzt2kkLwjAQhuG6K6YHUXDf/f+/0ekhECSBqJl05mMOL/RQ2jxNV2jbNE0L0lF55ui/E3UGcFyoK4jDL2t2hJlDVuaQlTlkZQ5ZcTlu1B3A8aCeAI7aITteSoo5lkGOGgjPfYxZk2NKzQAcc2oB4EA5r8whN3PIyhyySjm49hc+gznjdoTPYM2OWml17Kg9gGOTmA+XqO/xfuuIravBMaRGAI4xNQFw+MxhjtoOyZV0+Huedoe/5/0znu79Yv1D24KOEh0KzTXndZ7abs5xy51r/30j1ZGb/77h/q9rFYlrX2/BGngj
+   eJzt2ssKgzAQheH03tK46Lr23vd/xs5mIBSjKXaSmcMsPnBl/BmNCHYhhA7E2TjvaK8nF4COK7mBdPCx5Y6Ud+jiHbp4hy7eoYtUx508ADqe5AXQURtyx9uIoY5jIpKFcvHrmi11bMkOoGNPDgAdKPeVd+jlHbp4hy65Dqn10newJOmO9B1suaMWtI6Y0fr6/jEP76hnSVYAHWuyAehgaB0W96ixeaB0WDU2j6nZ8J7XuiHtGHo+pjp4z2vdMHcekn6dteS+mztvyfNYOmv+vpGcx5yOUvx9I/1f12mA1Fof0H92ig==
   </data>
  </layer>
  <layer name="Tile Layer 2" width="50" height="50">
   <data encoding="base64" compression="zlib">
-   eJzt2cENgCAMBVAmUO/uv6cbNIVUUXzvSvnh1DSlNYB3Omc/YLKto/YozszmAXxZttdl6/biPAAAqBbtBaI5NTobzQT4g6gPRnuE0XvZ3QTAqu6YTaPe2vOXB8CzLieYAWs=
+   eJzt2FsKgCAQhWFXUEFBl/dq/zusFuChdEon/g988tKINgyGAACoUfNg7Go8rnvwbQDw6m6uuzvOOhcDAAAA1tRbg6pTVU2s1uR9AYB309nmjPkqD6q8a903iDmexPaxfxpFPs6jLn8/D29y95GaP5VW9MVq4dg+tsQYSuFeveOqL/qENpYIVliM1/P2f6B+B1MfBRI=
   </data>
  </layer>
 </map>
