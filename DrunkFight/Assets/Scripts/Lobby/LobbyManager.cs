@@ -24,13 +24,8 @@ public class LobbyManager : NetworkLobbyManager {
         ChangeTo(mainMenuPanel);
         GetComponent<Canvas>().enabled = true;
         DontDestroyOnLoad(gameObject);
-        
-        currentMap = maps[Random.Range(0,maps.Count)];
-        playScene = currentMap;
 
-        int index = Random.Range(0,prefabs.Count);
-        gamePlayerPrefab = prefabs[index];
-        gamePlayerPrefab.GetComponent<Movement>().characterIndex = index;
+        Randomize();
     }
 
     void Update()
@@ -82,7 +77,9 @@ public class LobbyManager : NetworkLobbyManager {
 
     public void Randomize() {
         playScene = maps[Random.Range(0,maps.Count)];
-        gamePlayerPrefab = prefabs[Random.Range(0,prefabs.Count)];
+        int index = Random.Range(0, prefabs.Count);
+        gamePlayerPrefab = prefabs[index];
+        gamePlayerPrefab.GetComponent<Movement>().characterIndex = index;
     }
 
     public override void OnStartHost()
