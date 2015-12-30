@@ -175,7 +175,11 @@ public class Movement : NetworkBehaviour
 						break;
 					}
 				}
-				numDrinks -= donated;
+				if (donated > numDrinks) {
+					//Lose Here
+				} else {
+					numDrinks -= donated;
+				}
                 health = startingHealth;
                 //Debug.Log("Respawning");
                 RpcRespawn();
