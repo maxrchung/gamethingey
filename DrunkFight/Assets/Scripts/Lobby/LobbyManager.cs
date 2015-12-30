@@ -10,6 +10,9 @@ public class LobbyManager : NetworkLobbyManager {
 
     public List<GameObject> prefabs;
 
+    public List<string> maps;
+    private string currentMap;
+
     [HideInInspector]
     public RectTransform currentPanel;
 
@@ -21,6 +24,11 @@ public class LobbyManager : NetworkLobbyManager {
         ChangeTo(mainMenuPanel);
         GetComponent<Canvas>().enabled = true;
         DontDestroyOnLoad(gameObject);
+        
+        currentMap = maps[Random.Range(0,maps.Count)];
+        playScene = currentMap;
+
+        gamePlayerPrefab = prefabs[Random.Range(0,prefabs.Count)];
     }
 
     void Update()
@@ -48,10 +56,10 @@ public class LobbyManager : NetworkLobbyManager {
     }
 
     public override void OnServerSceneChanged(string sceneName)
-    {
-        base.OnServerSceneChanged(sceneName);
+    {     
+         base.OnServerSceneChanged(currentMap);
 
-        if (sceneName.Equals("TestScene")) 
+        if (sceneName.Equals(currentMap)) 
         {
             ChangeTo(connectionPanel);
         }
@@ -75,11 +83,12 @@ public class LobbyManager : NetworkLobbyManager {
         base.OnStartHost();
         ChangeTo(lobbyPanel);
     }
-
+/*
     public override GameObject OnLobbyServerCreateGamePlayer(NetworkConnection conn, short playerControllerId) {
              GameObject playerPrefab = (GameObject)Instantiate(prefabs[Random.Range(0, 2)]);
              NetworkServer.Spawn(playerPrefab);
              return playerPrefab;
     }
+ */
 
 }

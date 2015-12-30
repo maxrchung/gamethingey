@@ -54,18 +54,42 @@ public class Movement : NetworkBehaviour
         playerId = netId.ToString();
         Debug.Log(playerId);
 
-        GameObject playerStartPositions = GameObject.FindGameObjectWithTag("PlayerStartPositions");
-        foreach (Transform child in playerStartPositions.transform)
-        {
-            spawnLocations.Add(child.position);
-        }
         immacheater = true;
-        immacheater2 = 2;
+        immacheater2 = 10;
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
+	bool winner()
+	{
+        if (spawnLocations == null)
+        {
+            GameObject playerStartPositions = GameObject.FindGameObjectWithTag("PlayerStartPositions");
+            foreach (Transform child in playerStartPositions.transform)
+            {
+                spawnLocations.Add(child.position);
+            }
+        }
+
+		if (isDead)
+			return false;
+		GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+		foreach (GameObject player in players) {
+			if (player.GetComponent<Movement> ().playerId == playerId) {
+				if (!player.GetComponent<Movement> ().isDead) {
+					return false;
+				}
+			}
+		}
+
+		return true;
+	}
+
+	// Update is called once per frame
+	void FixedUpdate()
+	{
+		if(winner())
+		{
+			Debug.Log ("WWFOIEIJOWEIO");
+		}
         if(immacheater) {
             CmdRespawn();
             immacheater2--;
@@ -200,16 +224,20 @@ public class Movement : NetworkBehaviour
 					//Lose Here
 
                     CmdLoseGame();
-
+                    isDead = true;
                     //GameObject.FindGameObjectWithTag("MainPanel").GetComponent<ConnectionPanel>().OnClickQuitGame();
 					Debug.Log("Death");
 				} else {
 					numDrinks -= donated;
 				}
-                health = startingHealth;
-                //Debug.Log("Respawning");
-                RpcRespawn();
-				Debug.Log (numDrinks);
+
+                if (!isDead)
+                {
+                    health = startingHealth;
+                    //Debug.Log("Respawning");
+                    RpcRespawn();
+                    Debug.Log(numDrinks);
+                }
             }
         }
         Debug.Log("Health: " + health);
@@ -239,7 +267,7 @@ public class Movement : NetworkBehaviour
         {
             isDead = true;
             Vector3 deadPosition = transform.position;
-            deadPosition.z = deadPosition.z - 600.0f;
+            deadPosition.z = deadPosition.z - 25.0f;
             transform.position = deadPosition;
             gameObject.SetActive(false);
         }
