@@ -198,7 +198,10 @@ public class Movement : NetworkBehaviour
 				}
 				if (donated >= numDrinks) {
 					//Lose Here
-					GameObject.FindGameObjectWithTag("MainPanel").GetComponent<ConnectionPanel>().OnClickQuitGame();
+
+                    CmdLoseGame();
+
+                    //GameObject.FindGameObjectWithTag("MainPanel").GetComponent<ConnectionPanel>().OnClickQuitGame();
 					Debug.Log("Death");
 				} else {
 					numDrinks -= donated;
@@ -221,6 +224,25 @@ public class Movement : NetworkBehaviour
         //Debug.Log("Hit for " + damage + " damage");
         //Debug.Log("Knocked back for " + knockback);
         //Debug.Log("Slowed by " + slow);
+    }
+
+    [Command]
+    void CmdLoseGame()
+    {
+        RpcLoseGame();
+    }
+
+    [ClientRpc]
+    void RpcLoseGame()
+    {
+        if (isLocalPlayer)
+        {
+            isDead = true;
+            Vector3 deadPosition = transform.position;
+            deadPosition.z = deadPosition.z - 600.0f;
+            transform.position = deadPosition;
+            gameObject.SetActive(false);
+        }
     }
 
     [Command]
