@@ -40,6 +40,10 @@ public class AttackHitScript : MonoBehaviour
                 (hitPlayerId != playerId || hitsSelf) && 
                 !other.GetComponent<Movement>().isDead)
             {
+                if (other.GetComponent<Movement>().isLocalPlayer)
+                {
+                    GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ScreenShake>().Shake();
+                }
                 //Debug.Log("Hit! " + hitPlayerId + " " + playerId);
                 hitPlayers.Add(hitPlayerId);
                 Vector3 knockbackForce = (other.transform.position - transform.position).normalized * knockback;

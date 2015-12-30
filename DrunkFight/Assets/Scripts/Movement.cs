@@ -21,6 +21,8 @@ public class Movement : NetworkBehaviour
 
     [SyncVar]
     public float startingHealth = 100.0f;
+
+    [SyncVar]
     public float health;
 
     private Dictionary<string, Acceleration> accelerations;
@@ -160,7 +162,6 @@ public class Movement : NetworkBehaviour
         //Debug.Log("Player " + this.playerId + " was hit by an attack from Player " + hitOrigin);
         if(isServer) {
             health -= damage;
-            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ScreenShake>().Shake();
 
             if (health <= 0)
             {
