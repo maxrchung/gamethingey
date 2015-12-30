@@ -40,6 +40,7 @@ public class AttackHitScript : MonoBehaviour
                 (hitPlayerId != playerId || hitsSelf) && 
                 !other.GetComponent<Movement>().isDead)
             {
+                //Debug.Log("Hit! " + hitPlayerId + " " + playerId);
                 hitPlayers.Add(hitPlayerId);
                 Vector3 knockbackForce = (other.transform.position - transform.position).normalized * knockback;
                 other.GetComponent<Movement>().ApplyHit(playerId, damage, knockbackForce, slow, slowDuration);

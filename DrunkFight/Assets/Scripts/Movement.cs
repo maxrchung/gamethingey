@@ -158,17 +158,18 @@ public class Movement : NetworkBehaviour
     public void ApplyHit (string hitOrigin, float damage, Vector3 knockback, float slow, float slowDuration)
     {
         //Debug.Log("Player " + this.playerId + " was hit by an attack from Player " + hitOrigin);
-        if(isServer) { // && this.playerId != hitOrigin) {
+        if(isServer) {
             health -= damage;
+            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ScreenShake>().Shake();
 
             if (health <= 0)
             {
                 health = startingHealth;
-                Debug.Log("Respawning");
+                //Debug.Log("Respawning");
                 RpcRespawn();
             }
         }
-        Debug.Log("Health: " + health);
+        //Debug.Log("Health: " + health);
 
         // Apply knockback
         GetComponent<Rigidbody2D>().velocity = knockback;
