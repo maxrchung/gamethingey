@@ -177,6 +177,7 @@ public class Movement : NetworkBehaviour
 				}
 				if (donated > numDrinks) {
 					//Lose Here
+					Destroy(transform.parent.gameObject);
 				} else {
 					numDrinks -= donated;
 				}
