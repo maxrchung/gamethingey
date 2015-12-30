@@ -138,7 +138,9 @@ public class Movement : NetworkBehaviour
         //DRAIN
         if (Time.time - startTime >= 1)
         {
-            health -= 2;
+            if(health >= 0) {
+                health -= 2;
+            }
             startTime = Time.time;
 
         }
@@ -244,7 +246,6 @@ public class Movement : NetworkBehaviour
 
             if (health <= 0)
             {
-                GetComponent<WeaponScript>().SwitchToPunch();
                 int donated = numDrinks / 2 + 1;
                 GameObject killer;
                 GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
@@ -338,6 +339,7 @@ public class Movement : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
+            GetComponent<WeaponScript>().SwitchToPunch();
             transform.position = spawnLocations[Random.Range(0, spawnLocations.Count)];
         }
     }
