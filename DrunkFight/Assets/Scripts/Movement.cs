@@ -222,16 +222,22 @@ public class Movement : NetworkBehaviour
 				}
 				if (donated >= numDrinks) {
 					//Lose Here
-					GameObject.FindGameObjectWithTag("MainPanel").GetComponent<ConnectionPanel>().OnClickQuitGame();
+
+                    CmdLoseGame(playerId);
+                    isDead = true;
+                    //GameObject.FindGameObjectWithTag("MainPanel").GetComponent<ConnectionPanel>().OnClickQuitGame();
 					Debug.Log("Death");
 				} else {
 					numDrinks -= donated;
 				}
-                health = startingHealth;
-                //Debug.Log("Respawning");
-                RpcRespawn();
-				Debug.Log (numDrinks);
-            }
+
+                if (!isDead)
+                {
+                    health = startingHealth;
+                    //Debug.Log("Respawning");
+                    RpcRespawn();
+                    Debug.Log(numDrinks);
+                }            }
         }
         Debug.Log("Health: " + health);
 
@@ -245,6 +251,39 @@ public class Movement : NetworkBehaviour
         //Debug.Log("Hit for " + damage + " damage");
         //Debug.Log("Knocked back for " + knockback);
         //Debug.Log("Slowed by " + slow);
+    }
+
+    [Command]
+    void CmdLoseGame(string loseId)
+    {
+        RpcLoseGame(loseId);
+    }
+
+    [ClientRpc]
+    void RpcLoseGame(string loseId)
+    {
+        if (loseId == playerId)
+        {
+            isDead = true;
+            Vector3 deadPosition = transform.position;
+            deadPosition.z = deadPosition.z - 15.0f;
+            transform.position = deadPosition;
+            gameObject.SetActive(false);
+        }
+        if (isLocalPlayer)
+        {
+            var canvas = GameObject.FindGameObjectWithTag("Canvas");
+            foreach(Transform child in canvas.transform) {
+                if (child.tag != "EndGameStatus")
+                {
+                    child.gameObject.SetActive(false);
+                }
+                else
+                {
+                    child.gameObject.SetActive(true);
+                }
+            }
+        }
     }
 
     [Command]
