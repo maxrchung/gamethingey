@@ -17,6 +17,7 @@ public class ScreenShake : MonoBehaviour {
         duration = shakeDuration;
         cam = GetComponent<Camera>();
         originalPos = cam.transform.position;
+        StartCoroutine("ShakeCoroutine");
     }
 
     IEnumerator ShakeCoroutine()
