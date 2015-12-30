@@ -26,36 +26,37 @@ public class ItemDropScript : NetworkBehaviour
             if (isServer)
             {
                 currentItem = (int)(UnityEngine.Random.value * 100) % 4 + 1;
+                while (currentItem == lastItem)
+                {
+                    currentItem = (int)(UnityEngine.Random.value * 100) % 4 + 1;
+                }
+                lastItem = currentItem;
             }
         }
     }
 
     void LateUpdate()
     {
-        if (currentItem != lastItem)
+        if (currentItem == 0) // empty
         {
-            if (currentItem == 0) // empty
-            {
-                animKun.SetInteger("currentItem", 0);
-            }
-            else if (currentItem == 1)
-            { // vomit
-                animKun.SetInteger("currentItem", 1);
-            }
-            else if (currentItem == 2)
-            { // poop
-                animKun.SetInteger("currentItem", 2);
-            }
-            else if (currentItem == 3)
-            { // flame
-                animKun.SetInteger("currentItem", 3);
-            }
-            else if (currentItem == 4)
-            { // heal
-                animKun.SetInteger("currentItem", 4);
-            }
+            animKun.SetInteger("currentItem", 0);
         }
-        lastItem = currentItem;
+        else if (currentItem == 1)
+        { // vomit
+            animKun.SetInteger("currentItem", 1);
+        }
+        else if (currentItem == 2)
+        { // poop
+            animKun.SetInteger("currentItem", 2);
+        }
+        else if (currentItem == 3)
+        { // flame
+            animKun.SetInteger("currentItem", 3);
+        }
+        else if (currentItem == 4)
+        { // heal
+            animKun.SetInteger("currentItem", 4);
+        }
     }
 
     void OnTriggerStay2D(Collider2D other)
