@@ -78,6 +78,11 @@ public class LobbyManager : NetworkLobbyManager {
         ChangeTo(mainMenuPanel);
     }
 
+    public void Randomize() {
+        playScene = maps[Random.Range(0,maps.Count)];
+        gamePlayerPrefab = prefabs[Random.Range(0,prefabs.Count)];
+    }
+
     public override void OnStartHost()
     {
         base.OnStartHost();

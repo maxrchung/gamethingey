@@ -10,6 +10,7 @@ public class ConnectionPanel : MonoBehaviour {
     {
         Debug.Log("Quitting game!");
         lobbyManager.ChangeTo(mainPanel);
+        lobbyManager.Randomize();
         lobbyManager.StopHost();
         lobbyManager.StopClient();
         lobbyManager.isHost = false;
