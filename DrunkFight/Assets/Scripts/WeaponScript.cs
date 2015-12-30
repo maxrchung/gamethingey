@@ -98,11 +98,16 @@ public class WeaponScript : NetworkBehaviour
         charge -= 1;
         if (charge <= 0)
         {
-            currentWeapon = 0;
-			charges = 999;
+            SwitchToPunch();
         }
         return charge;
     }
+
+    public void SwitchToPunch() {
+        currentWeapon = 0;
+        charges = 999;
+    }
+
 	void heal(float amount){
 		GetComponent<Movement> ().health += amount * GetComponent<Movement> ().startingHealth;
 		if (GetComponent<Movement> ().health > GetComponent<Movement> ().startingHealth) {

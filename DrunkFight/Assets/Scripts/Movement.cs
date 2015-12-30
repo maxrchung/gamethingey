@@ -5,8 +5,6 @@ using System.Collections.Generic;
 
 public class Movement : NetworkBehaviour
 {
-    [SyncVar]
-    public GameObject prefab;
 
     public List<GameObject> prefabs;
 
@@ -40,6 +38,8 @@ public class Movement : NetworkBehaviour
     [SyncVar]
     public bool isDead = false;
 
+    private float startTime;
+
     private GameObject playerStartPositions;
     
     // Use this for initialization
@@ -61,6 +61,7 @@ public class Movement : NetworkBehaviour
                   spawnLocations.Add(child.position);
              }
         }
+        startTime = Time.time;
     }
 
 	bool winner()
@@ -109,6 +110,12 @@ public class Movement : NetworkBehaviour
 
         if(isClient) {
             //Debug.Log(playerId + " " + health);
+        }
+        //DRAIN
+        if(Time.time - startTime >= 1) {
+            health -= 2;
+            startTime = Time.time;
+
         }
 
         // Rotate player towards mouse
@@ -211,6 +218,7 @@ public class Movement : NetworkBehaviour
 
             if (health <= 0)
             {
+                GetComponent<WeaponScript>().SwitchToPunch();
 				int donated = numDrinks / 2 + 1;
 				GameObject killer;
 				GameObject[] players = GameObject.FindGameObjectsWithTag ("Player");
