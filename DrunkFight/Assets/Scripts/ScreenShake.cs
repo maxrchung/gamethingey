@@ -8,28 +8,38 @@ public class ScreenShake : MonoBehaviour {
     Camera cam;
     float timer = 0.0f;
     bool isRunning = false;
+    GameObject mainPlayer;
 
     // To use ScreenShake, call ScreenShake's Shake from anywhere
     // and specify a shakeAmount and shakeDuration
     // Defaults have been given if you want an idea of 
-    public void Shake(float shakeAmount = 0.5f, float shakeDuration = 1.0f)
+    public void Shake(float shakeAmount = 0.3f, float shakeDuration = 1.0f)
     {
-        amount = shakeAmount;
-        duration = shakeDuration;
-        cam = GetComponent<Camera>();
-        originalPos = cam.transform.position;
+        if (mainPlayer == null)
+        {
+            foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
+            {
+                if (player.GetComponent<Movement>().isLocalPlayer)
+                    mainPlayer = player;
+            }
+        }
+        if (mainPlayer != null)
+        {
+            amount = shakeAmount;
+            duration = shakeDuration;
+            cam = GetComponent<Camera>();
 
-        // If currently shaking, then add time to the shake
-        // else start a new shake
-        if (isRunning)
-        {
-            timer -= shakeDuration;
+            // If currently shaking, restart duration
+            // else start a new shake
+            if (isRunning)
+            {
+                timer = duration - shakeDuration;
+            }
+            else
+            {
+                StartCoroutine("ShakeCoroutine");
+            }
         }
-        else
-        {
-            StartCoroutine("ShakeCoroutine");
-        }
-        
     }
 
     IEnumerator ShakeCoroutine()
@@ -39,18 +49,19 @@ public class ScreenShake : MonoBehaviour {
         {
             timer += Time.deltaTime;
 
-            int degrees = Random.Range(0, 360);
-            Quaternion rotation = Quaternion.Euler(0.0f, 0.0f, degrees);
-            Vector3 direction = rotation * new Vector3(Random.Range(0.1f, amount), 0.0f, 0.0f);
+            Vector3 direction = new Vector3(Random.Range(0.1f, amount),
+                                            Random.Range(0.1f, amount),
+                                            -10.0f + Random.Range(0.1f, amount));
 
-            cam.transform.position = originalPos + direction;
+            cam.transform.position = mainPlayer.transform.position + direction;
             yield return null;
         }
         timer = 0;
 
         // Z-axis shouldn't change
-        originalPos.z = cam.transform.position.z;
-        cam.transform.position = originalPos;
+        Vector3 resetPos = mainPlayer.transform.position;
+        resetPos.z = -10.0f;
+        cam.transform.position = resetPos;
 
         isRunning = false;
     }
