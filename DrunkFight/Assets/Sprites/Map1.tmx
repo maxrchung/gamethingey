@@ -113,6 +113,16 @@
    </objectgroup>
   </tile>
  </tileset>
+ <tileset firstgid="22" name="table4" tilewidth="256" tileheight="256" tilecount="1">
+  <image source="table4.png" width="256" height="256"/>
+  <tile id="0">
+   <objectgroup draworder="index">
+    <object id="0" x="192" y="0">
+     <polyline points="0,0 64,64 64,192 0,256 -128,256 -192,192 -192,64 -128,0 0,0 64,64"/>
+    </object>
+   </objectgroup>
+  </tile>
+ </tileset>
  <layer name="Tile Layer 1" width="34" height="34">
   <data encoding="base64" compression="zlib">
    eJztl0sOgCAMBXFj8O/9T2s33ZjQNljgiZLMRkEn7UsTYgghgjAoTMRs2CcxCu+sHguxAniU5vdo54GSDySPFJIHL+t/tP259UDxqMmXPTZib+jB+TiI08GDV66HV19QPJ70JWeOlcoHQj0QPCRqzvW3e/SaDyQP5v4crR7SrEud185Yv9NDPjzuux4eHvfdVn1B8bDkA4ELiB8Jog==
@@ -120,7 +130,7 @@
  </layer>
  <layer name="Tile Layer 2" width="34" height="34">
   <data encoding="base64" compression="zlib">
-   eJzt1bsKACAIRmGhornL+z9rrY1SksL5wEEQ+RdRxKfBjsPc1S6rP8gBIKasnC8mKYDY0u8AgEPau9D+IwCwUo37CBasgwHA
+   eJzt1b0KACAIhVGhorkfev9HrbVRSkr4DjgIF7mbIn9q3Nj0NeVw6oUeAHyKynwyaQH4Nl4XAD4UlHntPwIAK9l492ACVOYB0w==
   </data>
  </layer>
 </map>
