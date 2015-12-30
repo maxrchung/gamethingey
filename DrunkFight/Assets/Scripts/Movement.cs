@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Networking;
+using System.Collections;
 using System.Collections.Generic;
 
 public class Movement : NetworkBehaviour
@@ -12,28 +13,53 @@ public class Movement : NetworkBehaviour
     public int backwardsMoveThreshold = 145;
     public float sidewaysMoveFraction = 0.7f;
     public float backwardsMoveFraction = 0.3f;
+    private List<Vector3> spawnLocations = new List<Vector3>();
+    public float respawnTimer = 3.0f;
+
+    private float slowCounter;
+    private float slow;
 
     [SyncVar]
-    public int health = 100;
+    public float startingHealth = 100.0f;
+
+    [SyncVar]
+    public float health;
 
     private Dictionary<string, Acceleration> accelerations;
 
     [HideInInspector]
     public string playerId;
 
+    [HideInInspector]
+    [SyncVar]
+    public bool isDead = false;
+    
     // Use this for initialization
     void Start()
     {
+        health = startingHealth;
         accelerations = new Dictionary<string, Acceleration>();
         accelerations.Add("Movement", new Acceleration(null, null, moveAccel));
         accelerations.Add("Friction", new Acceleration(0.0f, 0.0f, frictionAccel));
+        slowCounter = 0.0f;
         playerId = netId.ToString();
         Debug.Log(playerId);
+
+        GameObject playerStartPositions = GameObject.FindGameObjectWithTag("PlayerStartPositions");
+        foreach (Transform child in playerStartPositions.transform)
+        {
+            spawnLocations.Add(child.position);
+        }
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (isDead)
+        {
+            return;
+        }
+
         if (!isLocalPlayer)
         {
             return;
@@ -50,11 +76,16 @@ public class Movement : NetworkBehaviour
             Vector3 dir = Input.mousePosition - pos;
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             Quaternion lookDirection = Quaternion.AngleAxis(angle - 90, Vector3.forward);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, lookDirection, turnSpeed);
+            //transform.rotation = Quaternion.RotateTowards(transform.rotation, lookDirection, turnSpeed);
+            transform.rotation = lookDirection;
         }
 
         // Handle movement
         float currMoveSpeed = moveSpeed;
+        if (slowCounter > 0.0f)
+            currMoveSpeed = slow * moveSpeed;
+        slowCounter -= Time.fixedDeltaTime;
+
         accelerations["Movement"].x = null;
         accelerations["Movement"].y = null;
 
@@ -126,16 +157,50 @@ public class Movement : NetworkBehaviour
             GetComponent<Animator>().SetBool("Moving", true);
     }
 
-    public void ApplyHit (string hitOrigin, float damage, Vector3 knockback, float slow)
+    public void ApplyHit (string hitOrigin, float damage, Vector3 knockback, float slow, float slowDuration)
     {
         //Debug.Log("Player " + this.playerId + " was hit by an attack from Player " + hitOrigin);
-        if(!isServer && this.playerId != hitOrigin) {
-            health -= 10;
+        if(isServer) {
+            health -= damage;
+
+            if (health <= 0)
+            {
+                health = startingHealth;
+                //Debug.Log("Respawning");
+                RpcRespawn();
+            }
         }
+        //Debug.Log("Health: " + health);
+
+        // Apply knockback
+        GetComponent<Rigidbody2D>().velocity = knockback;
+
+        // Apply slow
+        this.slow = slow;
+        this.slowCounter = slowDuration;
 
         //Debug.Log("Hit for " + damage + " damage");
         //Debug.Log("Knocked back for " + knockback);
         //Debug.Log("Slowed by " + slow);
+    }
+
+    [ClientRpc]
+    void RpcRespawn()
+    {
+        if (isLocalPlayer)
+        {
+            transform.position = spawnLocations[Random.Range(0, spawnLocations.Count)];
+        }
+    }
+
+    IEnumerator RespawnPlayer()
+    {
+        isDead = true;
+        gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        yield return new WaitForSeconds(respawnTimer);
+        transform.position = spawnLocations[Random.Range(0, spawnLocations.Count)];
+        gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        isDead = false;
     }
 }
 

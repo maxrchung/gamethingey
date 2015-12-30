@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="64" tileheight="64" nextobjectid="1">
+ <tileset firstgid="1" name="floor" tilewidth="64" tileheight="64" tilecount="1">
+  <image source="floor.png" width="64" height="64"/>
+ </tileset>
+ <tileset firstgid="2" name="beerFloor" tilewidth="64" tileheight="64" tilecount="4">
+  <image source="beerFloor.png" width="128" height="128"/>
+ </tileset>
+ <tileset firstgid="6" name="beerFloor2" tilewidth="64" tileheight="64" tilecount="4">
+  <image source="beerFloor2.png" width="128" height="128"/>
+ </tileset>
+ <tileset firstgid="10" name="StairsDown" tilewidth="64" tileheight="64" tilecount="1">
+  <image source="StairsDown.png" width="64" height="64"/>
+ </tileset>
+ <tileset firstgid="11" name="StairsUp" tilewidth="64" tileheight="64" tilecount="1">
+  <image source="StairsUp.png" width="64" height="64"/>
+ </tileset>
+ <tileset firstgid="12" name="newWall" tilewidth="64" tileheight="64" tilecount="1">
+  <image source="newWall.png" width="64" height="64"/>
+  <tile id="0">
+   <objectgroup draworder="index">
+    <object id="0" x="0" y="0" width="64" height="64"/>
+   </objectgroup>
+  </tile>
+ </tileset>
+ <tileset firstgid="13" name="newWall2" tilewidth="64" tileheight="64" tilecount="1">
+  <image source="newWall2.png" width="64" height="64"/>
+  <tile id="0">
+   <objectgroup draworder="index">
+    <object id="0" x="0" y="0" width="64" height="64"/>
+   </objectgroup>
+  </tile>
+ </tileset>
+ <tileset firstgid="14" name="table" tilewidth="256" tileheight="256" tilecount="1">
+  <image source="table.png" width="256" height="256"/>
+  <tile id="0">
+   <objectgroup draworder="index">
+    <object id="0" x="64" y="0">
+     <polyline points="0,0 128,0 192,64 192,192 128,256 0,256 -64,192 -64,64 0,0"/>
+    </object>
+   </objectgroup>
+  </tile>
+ </tileset>
+ <tileset firstgid="15" name="table2" tilewidth="256" tileheight="256" tilecount="1">
+  <image source="table2.png" width="256" height="256"/>
+  <tile id="0">
+   <objectgroup draworder="index">
+    <object id="0" x="64" y="0">
+     <polyline points="0,0 128,0 192,64 192,192 128,256 0,256 -64,192 -64,64 0,0 128,0"/>
+    </object>
+   </objectgroup>
+  </tile>
+ </tileset>
+ <tileset firstgid="16" name="table3" tilewidth="256" tileheight="256" tilecount="1">
+  <image source="table3.png" width="256" height="256"/>
+  <tile id="0">
+   <objectgroup draworder="index">
+    <object id="0" x="64" y="0">
+     <polyline points="0,0 128,0 192,64 192,192 128,256 0,256 -64,192 -64,64 0,0"/>
+    </object>
+   </objectgroup>
+  </tile>
+ </tileset>
+ <tileset firstgid="17" name="floorBlock" tilewidth="64" tileheight="64" tilecount="1">
+  <image source="floor.png" width="64" height="64"/>
+  <tile id="0">
+   <objectgroup draworder="index">
+    <object id="0" x="0" y="0" width="64" height="64"/>
+   </objectgroup>
+  </tile>
+ </tileset>
+ <tileset firstgid="18" name="urinal2" tilewidth="64" tileheight="64" tilecount="1">
+  <image source="urinal2.png" width="64" height="64"/>
+  <tile id="0">
+   <objectgroup draworder="index">
+    <object id="0" x="16" y="0">
+     <polyline points="0,0 32,32 0,64 -16,64 -16,0 0,0 32,32"/>
+    </object>
+   </objectgroup>
+  </tile>
+ </tileset>
+ <tileset firstgid="19" name="Bar" tilewidth="64" tileheight="64" tilecount="1">
+  <image source="Bar.png" width="64" height="64"/>
+  <tile id="0">
+   <objectgroup draworder="index">
+    <object id="0" x="0" y="0" width="64" height="64"/>
+   </objectgroup>
+  </tile>
+ </tileset>
+ <tileset firstgid="20" name="Bar2" tilewidth="64" tileheight="64" tilecount="1">
+  <image source="Bar2.png" width="64" height="64"/>
+  <tile id="0">
+   <objectgroup draworder="index">
+    <object id="0" x="0" y="0" width="64" height="64"/>
+   </objectgroup>
+  </tile>
+ </tileset>
+ <tileset firstgid="21" name="Bar3" tilewidth="64" tileheight="64" tilecount="1">
+  <image source="Bar3.png" width="64" height="64"/>
+  <tile id="0">
+   <objectgroup draworder="index">
+    <object id="0" x="0" y="0" width="64" height="64"/>
+   </objectgroup>
+  </tile>
+ </tileset>
+ <tileset firstgid="22" name="Bar4" tilewidth="64" tileheight="64" tilecount="1">
+  <image source="Bar4.png" width="64" height="64"/>
+  <tile id="0">
+   <objectgroup draworder="index">
+    <object id="0" x="0" y="0" width="64" height="64"/>
+   </objectgroup>
+  </tile>
+ </tileset>
+ <tileset firstgid="23" name="Bar5" tilewidth="64" tileheight="64" tilecount="1">
+  <image source="Bar5.png" width="64" height="64"/>
+  <tile id="0">
+   <objectgroup draworder="index">
+    <object id="0" x="0" y="0" width="64" height="64"/>
+   </objectgroup>
+  </tile>
+ </tileset>
+ <tileset firstgid="24" name="Bar6" tilewidth="64" tileheight="64" tilecount="1">
+  <image source="Bar6.png" width="64" height="64"/>
+  <tile id="0">
+   <objectgroup draworder="index">
+    <object id="0" x="0" y="0" width="64" height="64"/>
+   </objectgroup>
+  </tile>
+ </tileset>
+ <tileset firstgid="25" name="Bar7" tilewidth="64" tileheight="64" tilecount="1">
+  <image source="Bar7.png" width="64" height="64"/>
+  <tile id="0">
+   <objectgroup draworder="index">
+    <object id="0" x="0" y="0" width="64" height="64"/>
+   </objectgroup>
+  </tile>
+ </tileset>
+ <tileset firstgid="26" name="Bar8" tilewidth="64" tileheight="64" tilecount="1">
+  <image source="Bar8.png" width="64" height="64"/>
+  <tile id="0">
+   <objectgroup draworder="index">
+    <object id="0" x="0" y="0" width="64" height="64"/>
+   </objectgroup>
+  </tile>
+ </tileset>
+ <tileset firstgid="27" name="floor2" tilewidth="64" tileheight="64" tilecount="1">
+  <image source="floor2.png" width="64" height="64"/>
+ </tileset>
+ <tileset firstgid="28" name="beerFloor3" tilewidth="64" tileheight="64" tilecount="4">
+  <image source="beerFloor3.png" width="128" height="128"/>
+ </tileset>
+ <tileset firstgid="32" name="beerFloor4" tilewidth="64" tileheight="64" tilecount="4">
+  <image source="beerFloor4.png" width="128" height="128"/>
+ </tileset>
+ <tileset firstgid="36" name="floorRailingL" tilewidth="64" tileheight="64" tilecount="1">
+  <image source="floorRailingL.png" width="64" height="64"/>
+  <tile id="0">
+   <objectgroup draworder="index">
+    <object id="0" x="0" y="48" width="64" height="16"/>
+   </objectgroup>
+  </tile>
+ </tileset>
+ <tileset firstgid="37" name="table4" tilewidth="256" tileheight="256" tilecount="1">
+  <image source="table4.png" width="256" height="256"/>
+  <tile id="0">
+   <objectgroup draworder="index">
+    <object id="0" x="192" y="0">
+     <polyline points="0,0 64,64 64,192 0,256 -128,256 -192,192 -192,64 -128,0 0,0 64,64"/>
+    </object>
+   </objectgroup>
+  </tile>
+ </tileset>
+ <tileset firstgid="38" name="Toilet2" tilewidth="64" tileheight="64" tilecount="1">
+  <image source="Toilet2.png" width="64" height="64"/>
+  <tile id="0">
+   <objectgroup draworder="index">
+    <object id="0" x="64" y="32">
+     <polyline points="0,0 0,-16 -48,-16 -48,-32 -64,-32 -64,32 -48,32 -48,16 0,16 0,0 0,-16"/>
+    </object>
+   </objectgroup>
+  </tile>
+ </tileset>
+ <tileset firstgid="39" name="urinal2" tilewidth="64" tileheight="64" tilecount="1">
+  <image source="urinal2.png" width="64" height="64"/>
+  <tile id="0">
+   <objectgroup draworder="index">
+    <object id="0" x="0" y="64">
+     <polyline points="0,0 16,0 48,-32 16,-64 0,-64 0,0 16,0"/>
+    </object>
+   </objectgroup>
+  </tile>
+ </tileset>
+ <layer name="Tile Layer 1" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJzt2ssKgzAQheH03tK46Lr23vd/xs5mIBSjKXaSmcMsPnBl/BmNCHYhhA7E2TjvaK8nF4COK7mBdPCx5Y6Ud+jiHbp4hy7eoYtUx508ADqe5AXQURtyx9uIoY5jIpKFcvHrmi11bMkOoGNPDgAdKPeVd+jlHbp4hy65Dqn10newJOmO9B1suaMWtI6Y0fr6/jEP76hnSVYAHWuyAehgaB0W96ixeaB0WDU2j6nZ8J7XuiHtGHo+pjp4z2vdMHcekn6dteS+mztvyfNYOmv+vpGcx5yOUvx9I/1f12mA1Fof0H92ig==
+  </data>
+ </layer>
+ <layer name="Tile Layer 2" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJzt2FsKgCAQhWFXUEFBl/dq/zusFuChdEon/g988tKINgyGAACoUfNg7Go8rnvwbQDw6m6uuzvOOhcDAAAA1tRbg6pTVU2s1uR9AYB309nmjPkqD6q8a903iDmexPaxfxpFPs6jLn8/D29y95GaP5VW9MVq4dg+tsQYSuFeveOqL/qENpYIVliM1/P2f6B+B1MfBRI=
+  </data>
+ </layer>
+</map>

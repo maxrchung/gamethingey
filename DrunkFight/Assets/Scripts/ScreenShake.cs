@@ -7,6 +7,7 @@ public class ScreenShake : MonoBehaviour {
     Vector3 originalPos;
     Camera cam;
     float timer = 0.0f;
+    bool isRunning = false;
 
     // To use ScreenShake, call ScreenShake's Shake from anywhere
     // and specify a shakeAmount and shakeDuration
@@ -17,10 +18,23 @@ public class ScreenShake : MonoBehaviour {
         duration = shakeDuration;
         cam = GetComponent<Camera>();
         originalPos = cam.transform.position;
+
+        // If currently shaking, then add time to the shake
+        // else start a new shake
+        if (isRunning)
+        {
+            timer -= shakeDuration;
+        }
+        else
+        {
+            StartCoroutine("ShakeCoroutine");
+        }
+        
     }
 
     IEnumerator ShakeCoroutine()
     {
+        isRunning = true;
         while (timer <= duration)
         {
             timer += Time.deltaTime;
@@ -37,5 +51,7 @@ public class ScreenShake : MonoBehaviour {
         // Z-axis shouldn't change
         originalPos.z = cam.transform.position.z;
         cam.transform.position = originalPos;
+
+        isRunning = false;
     }
 }

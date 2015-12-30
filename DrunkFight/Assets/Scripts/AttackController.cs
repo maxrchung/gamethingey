@@ -13,8 +13,7 @@ public class AttackController : MonoBehaviour {
 		AnimatorStateInfo asi = GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
 
 		if(!asi.IsName(animName) || asi.normalizedTime >= 1) {
-			gameObject.active = false;
+            gameObject.SetActive(false);
 		}
-
 	}
 }
