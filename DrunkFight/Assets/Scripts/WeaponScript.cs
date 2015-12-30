@@ -32,11 +32,14 @@ public class WeaponScript : NetworkBehaviour
     public void getWeapon(int weapon)
     {
         // Not using healing or extra things atm
-        if (weapon >= 4)
-        {
-            weapon = 0;
+		if (weapon >= 4) {
+			
+			heal (.5f);
+			weapon = 0;
 			charges = 999;
-        }
+		} else {
+			heal (.1f);
+		}
         currentWeapon = weapon;
         if (currentWeapon == 1)
         {
@@ -99,7 +102,13 @@ public class WeaponScript : NetworkBehaviour
         }
         return charge;
     }
-
+	void heal(float amount){
+		GetComponent<Movement> ().health += amount * GetComponent<Movement> ().startingHealth;
+		if (GetComponent<Movement> ().health > GetComponent<Movement> ().startingHealth) {
+			GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<ScreenShake> ().Shake ();
+			GetComponent<Movement> ().health = GetComponent<Movement> ().startingHealth;
+		}
+	}
     [Command]
     void CmdPunch()
     {
