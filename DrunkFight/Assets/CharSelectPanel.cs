@@ -19,6 +19,7 @@ public class CharSelectPanel : NetworkBehaviour {
     	index = (int) playerSelection.value;
     	prefab = playerPrefabs[(int) playerSelection.value];
         prefab.GetComponent<Movement>().characterIndex = index;
+        Debug.Log("ASKDBAIEURKUAIEHI*GIURKUHGY          " + index);
     	Debug.Log(prefab);
     	if(lobbyManager.isHost) {
     		lobbyManager.StartHost();

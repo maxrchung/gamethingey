@@ -36,7 +36,8 @@ public class AttackHitScript : MonoBehaviour
 
     private void OnEnable()
     {
-        audioMaster.PlayShootSound(attackIndex);
+        if (audioMaster != null)
+            audioMaster.PlayShootSound(attackIndex);
     }
 
     public void setPlayerId(string playerId)

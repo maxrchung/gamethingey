@@ -28,7 +28,9 @@ public class LobbyManager : NetworkLobbyManager {
         currentMap = maps[Random.Range(0,maps.Count)];
         playScene = currentMap;
 
-        gamePlayerPrefab = prefabs[Random.Range(0,prefabs.Count)];
+        int index = Random.Range(0,prefabs.Count);
+        gamePlayerPrefab = prefabs[index];
+        gamePlayerPrefab.GetComponent<Movement>().characterIndex = index;
     }
 
     void Update()
