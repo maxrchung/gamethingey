@@ -178,7 +178,12 @@ public class Movement : NetworkBehaviour
 						break;
 					}
 				}
-				numDrinks -= donated;
+				if (donated > numDrinks) {
+					//Lose Here
+					Destroy(transform.parent.gameObject);
+				} else {
+					numDrinks -= donated;
+				}
                 health = startingHealth;
                 //Debug.Log("Respawning");
                 RpcRespawn();
