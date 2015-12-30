@@ -42,6 +42,8 @@ public class Movement : NetworkBehaviour
     public bool isDead = false;
 
     private bool immacheater;
+
+    private GameObject playerStartPositions;
     
     // Use this for initialization
     void Start()
@@ -54,10 +56,13 @@ public class Movement : NetworkBehaviour
         playerId = netId.ToString();
         Debug.Log(playerId);
 
-        GameObject playerStartPositions = GameObject.FindGameObjectWithTag("PlayerStartPositions");
-        foreach (Transform child in playerStartPositions.transform)
+        playerStartPositions = GameObject.FindGameObjectWithTag("PlayerStartPositions");
+        if (playerStartPositions != null)
         {
-            spawnLocations.Add(child.position);
+             foreach (Transform child in playerStartPositions.transform)
+             {
+                  spawnLocations.Add(child.position);
+             }
         }
         immacheater = true;
         immacheater2 = 10;
@@ -82,6 +87,17 @@ public class Movement : NetworkBehaviour
 	// Update is called once per frame
 	void FixedUpdate()
 	{
+          if (playerStartPositions == null)
+          {
+               playerStartPositions = GameObject.FindGameObjectWithTag("PlayerStartPositions");
+               if (playerStartPositions != null)
+               {
+                    foreach (Transform child in playerStartPositions.transform)
+                    {
+                         spawnLocations.Add(child.position);
+                    }
+               }
+          }
 		if(winner())
 		{
 			Debug.Log ("WWFOIEIJOWEIO");
