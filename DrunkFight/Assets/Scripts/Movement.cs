@@ -229,7 +229,7 @@ public class Movement : NetworkBehaviour
 				}
                 health = startingHealth;
                 //Debug.Log("Respawning");
-                RpcRespawn();
+                CmdRespawn();
 				Debug.Log (numDrinks);
             }
         }
