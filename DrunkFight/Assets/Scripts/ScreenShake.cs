@@ -13,7 +13,7 @@ public class ScreenShake : MonoBehaviour {
     // To use ScreenShake, call ScreenShake's Shake from anywhere
     // and specify a shakeAmount and shakeDuration
     // Defaults have been given if you want an idea of 
-    public void Shake(float shakeAmount = 0.3f, float shakeDuration = 1.0f)
+    public void Shake(float shakeAmount = 0.3f, float shakeDuration = 5.0f)
     {
         if (mainPlayer == null)
         {
@@ -48,21 +48,12 @@ public class ScreenShake : MonoBehaviour {
         while (timer <= duration)
         {
             timer += Time.deltaTime;
-
-            Vector3 direction = new Vector3(Random.Range(0.1f, amount),
-                                            Random.Range(0.1f, amount),
-                                            -10.0f + Random.Range(0.1f, amount));
-
-            cam.transform.position = mainPlayer.transform.position + direction;
+            cam.transform.position += new Vector3(Random.Range(-amount, amount),
+                                                  Random.Range(-amount, amount),
+                                                  Random.Range(-amount, amount));
             yield return null;
         }
         timer = 0;
-
-        // Z-axis shouldn't change
-        Vector3 resetPos = mainPlayer.transform.position;
-        resetPos.z = -10.0f;
-        cam.transform.position = resetPos;
-
         isRunning = false;
     }
 }

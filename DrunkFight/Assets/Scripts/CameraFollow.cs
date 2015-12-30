@@ -11,7 +11,7 @@ public class CameraFollow : NetworkBehaviour {
     Vector3 lurch;
     int lurchReverse = 1;
     int rockingReverse = 1;
-    Vector3 velocity = Vector3.zero;
+    public Vector3 velocity = Vector3.zero;
     GameObject player;
     Camera cam;
 

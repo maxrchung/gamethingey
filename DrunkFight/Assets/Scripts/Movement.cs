@@ -159,10 +159,13 @@ public class Movement : NetworkBehaviour
 
     public void ApplyHit (string hitOrigin, float damage, Vector3 knockback, float slow, float slowDuration)
     {
+        if (isLocalPlayer && isClient)
+        {
+            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ScreenShake>().Shake();
+        }
         //Debug.Log("Player " + this.playerId + " was hit by an attack from Player " + hitOrigin);
         if(isServer) {
             health -= damage;
-             GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ScreenShake>().Shake();
 
             if (health <= 0)
             {
@@ -182,7 +185,7 @@ public class Movement : NetworkBehaviour
 				Debug.Log (numDrinks);
             }
         }
-        //Debug.Log("Health: " + health);
+        Debug.Log("Health: " + health);
 
         // Apply knockback
         GetComponent<Rigidbody2D>().velocity = knockback;
