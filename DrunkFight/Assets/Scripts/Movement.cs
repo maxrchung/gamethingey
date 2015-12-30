@@ -26,6 +26,7 @@ public class Movement : NetworkBehaviour
 
     [SyncVar]
     public float startingHealth = 100.0f;
+	[SyncVar]
     public float health;
 	[SyncVar]
 	public int numDrinks=5;
