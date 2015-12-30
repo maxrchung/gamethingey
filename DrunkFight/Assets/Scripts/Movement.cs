@@ -249,7 +249,7 @@ public class Movement : NetworkBehaviour
 
             if (health <= 0)
             {
-                int donated = numDrinks 3 / 4;
+                int donated = numDrinks *  3 / 4;
                 GameObject killer;
                 GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
                 foreach (GameObject p in players)
