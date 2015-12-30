@@ -63,9 +63,29 @@ public class Movement : NetworkBehaviour
         immacheater2 = 10;
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
+	bool winner()
+	{
+		if (isDead)
+			return false;
+		GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+		foreach (GameObject player in players) {
+			if (player.GetComponent<Movement> ().playerId = playerId) {
+				if (!player.GetComponent<Movement> ().isDead) {
+					return false;
+				}
+			}
+		}
+
+		return true;
+	}
+
+	// Update is called once per frame
+	void FixedUpdate()
+	{
+		if(winner())
+		{
+			Debug.Log ("WWFOIEIJOWEIO");
+		}
         if(immacheater) {
             CmdRespawn();
             immacheater2--;
