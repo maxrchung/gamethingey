@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
@@ -64,19 +65,37 @@ public class Movement : NetworkBehaviour
     }
 
 	bool winner()
-	{
-		if (isDead)
-			return false;
-		GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-		foreach (GameObject player in players) {
-			if (player.GetComponent<Movement> ().playerId == playerId) {
-				if (!player.GetComponent<Movement> ().isDead) {
-					return false;
+	{        
+		if (isLocalPlayer) {
+			
+			if (isDead)
+				return false;
+			GameObject[] players = GameObject.FindGameObjectsWithTag ("Player");
+			if (players.Length <= 1) {
+				Debug.Log ("FUCKING1perns");
+				return false;
+			}
+			foreach (GameObject player in players) {
+				if (player.GetComponent<Movement> ().playerId != playerId) {
+					if (!player.GetComponent<Movement> ().isDead) {
+						Debug.Log ("ALIVE FUCKERS");
+						return false;
+					}
 				}
 			}
+			var canvas = GameObject.FindGameObjectWithTag ("Canvas");
+			foreach (Transform child in canvas.transform) {
+				if (child.tag != "EndGameStatus") {
+					child.gameObject.SetActive (false);
+				} else {
+					child.gameObject.SetActive (true);
+					child.gameObject.GetComponent<Text> ().text = "YOU WIN!";
+				}
+			}
+			return true;
 		}
 
-		return true;
+		return false;
 	}
 
 	// Update is called once per frame
