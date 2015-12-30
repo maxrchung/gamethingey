@@ -13,7 +13,7 @@ public class ScreenShake : MonoBehaviour {
     // To use ScreenShake, call ScreenShake's Shake from anywhere
     // and specify a shakeAmount and shakeDuration
     // Defaults have been given if you want an idea of 
-    public void Shake(float shakeAmount = 0.3f, float shakeDuration = 5.0f)
+    public void Shake(float shakeAmount = 0.3f, float shakeDuration = 1.0f)
     {
         if (mainPlayer == null)
         {
