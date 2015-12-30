@@ -237,8 +237,7 @@ public class Movement : NetworkBehaviour
                     //Debug.Log("Respawning");
                     RpcRespawn();
                     Debug.Log(numDrinks);
-                }
-            }
+                }            }
         }
         Debug.Log("Health: " + health);
 
