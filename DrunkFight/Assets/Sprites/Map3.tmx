@@ -199,12 +199,12 @@
  </tileset>
  <layer name="Tile Layer 1" width="25" height="25">
   <data encoding="base64" compression="zlib">
-   eJwTYGBg4KMClsQhLgjEvEDMTQWMyxxeKtohDqVhgBZ2wLA0HeygZVhJ0MEOMQbs6UqKinbQM13R0g56xDk97CAlXcEALdMVej4dTVdD047R8go/hgFapisZJDtGQrriZ8DfbhIGYh4cWARJnSgO/UJADAC5+RyY
+   eJwTYGBg4KMClsQhLgjEvEDMTQWMyxxeKtohTgc78PlvKNkhQQc7xBiwpyspKtoxmq4Glx2j6Yp4PJquiMej6Yp4PJquiMf40hU/A/52kzAQ8+DAIkjqRHHoFwJiAMNwHMo=
   </data>
  </layer>
  <layer name="Tile Layer 2" width="25" height="25">
   <data encoding="base64" compression="zlib">
-   eJxjYKAv4CCTHu6AfaAdQAPAMtAOGEKAVmE1mq5GNhhNV8SD0XRFPBhNV4MHAAD+kgBt
+   eJxjYKAv4CCTHo5AGonNPmCuoB1gGWgHDCFAq7AaTVeUA2nCSgYtGE1XxIPR8op4QG5YyRCQH47pitYAAIBYAL8=
   </data>
  </layer>
 </map>
