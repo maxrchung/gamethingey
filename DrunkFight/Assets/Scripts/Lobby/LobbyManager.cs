@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
+using System.Collections.Generic;
 
 public class LobbyManager : NetworkLobbyManager {
     public RectTransform mainMenuPanel;
     public RectTransform lobbyPanel;
     public RectTransform connectionPanel;
+
+    public List<GameObject> prefabs;
 
     [HideInInspector]
     public RectTransform currentPanel;
@@ -71,6 +74,12 @@ public class LobbyManager : NetworkLobbyManager {
     {
         base.OnStartHost();
         ChangeTo(lobbyPanel);
+    }
+
+    public override GameObject OnLobbyServerCreateGamePlayer(NetworkConnection conn, short playerControllerId) {
+             GameObject playerPrefab = (GameObject)Instantiate(prefabs[Random.Range(0, 2)]);
+             NetworkServer.Spawn(playerPrefab);
+             return playerPrefab;
     }
 
 }

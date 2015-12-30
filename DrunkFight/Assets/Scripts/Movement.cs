@@ -5,6 +5,11 @@ using System.Collections.Generic;
 
 public class Movement : NetworkBehaviour
 {
+    [SyncVar]
+    public GameObject prefab;
+
+    public List<GameObject> prefabs;
+
     public float moveSpeed = 3.5f;
     public float turnSpeed = 7.0f;
     public int moveAccel = 10;
@@ -15,6 +20,8 @@ public class Movement : NetworkBehaviour
     public float backwardsMoveFraction = 0.3f;
     private List<Vector3> spawnLocations = new List<Vector3>();
     public float respawnTimer = 3.0f;
+
+    private int immacheater2;
 
     private float slowCounter;
     private float slow;
@@ -33,6 +40,8 @@ public class Movement : NetworkBehaviour
     [HideInInspector]
     [SyncVar]
     public bool isDead = false;
+
+    private bool immacheater;
     
     // Use this for initialization
     void Start()
@@ -50,11 +59,20 @@ public class Movement : NetworkBehaviour
         {
             spawnLocations.Add(child.position);
         }
+        immacheater = true;
+        immacheater2 = 2;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        if(immacheater) {
+            CmdRespawn();
+            immacheater2--;
+            if(immacheater2 == 0) {
+                immacheater = false;
+            }
+        }
         if (isDead)
         {
             return;
@@ -182,6 +200,11 @@ public class Movement : NetworkBehaviour
         //Debug.Log("Hit for " + damage + " damage");
         //Debug.Log("Knocked back for " + knockback);
         //Debug.Log("Slowed by " + slow);
+    }
+
+    [Command]
+    void CmdRespawn() {
+        RpcRespawn();
     }
 
     [ClientRpc]
