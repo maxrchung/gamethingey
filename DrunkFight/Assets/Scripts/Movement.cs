@@ -196,9 +196,10 @@ public class Movement : NetworkBehaviour
 						break;
 					}
 				}
-				if (donated > numDrinks) {
+				if (donated >= numDrinks) {
 					//Lose Here
-					Destroy(transform.parent.gameObject);
+					GameObject.FindGameObjectWithTag("MainPanel").GetComponent<ConnectionPanel>().OnClickQuitGame();
+					Debug.Log("Death");
 				} else {
 					numDrinks -= donated;
 				}
