@@ -21,7 +21,7 @@ public class ItemDropScript : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (currentItem == 0 && Time.time - dropTime > 10)
+        if (currentItem == 0 && Time.time - dropTime > 6.9)
         {
             if (isServer)
             {
