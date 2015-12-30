@@ -256,7 +256,7 @@ public class Movement : NetworkBehaviour
                 {
                     if (p.GetComponent<Movement>().playerId == hitOrigin)
                     {
-                        p.GetComponent<Movement>().numDrinks += donated;
+                        p.GetComponent<Movement>().numDrinks += donated/2;
                         break;
                     }
                 }
