@@ -105,7 +105,6 @@ public class WeaponScript : NetworkBehaviour
 	void heal(float amount){
 		GetComponent<Movement> ().health += amount * GetComponent<Movement> ().startingHealth;
 		if (GetComponent<Movement> ().health > GetComponent<Movement> ().startingHealth) {
-			GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<ScreenShake> ().Shake ();
 			GetComponent<Movement> ().health = GetComponent<Movement> ().startingHealth;
 		}
 	}
@@ -142,9 +141,16 @@ public class WeaponScript : NetworkBehaviour
     [Command]
     void CmdFireVomit()
     {
+        RpcFireVomit();
+
+        //NetworkServer.Spawn(vomitObj);
+    }
+
+    [ClientRpc]
+    void RpcFireVomit()
+    {
         GameObject vomitObj = (GameObject)Instantiate(vomit, transform.position, transform.rotation);
         vomitObj.GetComponent<AttackHitScript>().setPlayerId(netId.ToString());
-        NetworkServer.Spawn(vomitObj);
     }
 
     [Command]
