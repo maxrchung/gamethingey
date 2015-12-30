@@ -33,6 +33,9 @@ public class Movement : NetworkBehaviour
     private Dictionary<string, Acceleration> accelerations;
 
     [HideInInspector]
+    public int characterIndex;
+
+    [HideInInspector]
     public string playerId;
 
     [HideInInspector]

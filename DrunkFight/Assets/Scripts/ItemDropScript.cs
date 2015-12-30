@@ -65,6 +65,7 @@ public class ItemDropScript : NetworkBehaviour
         {
             if (currentItem != 0)
             {
+                GameObject.FindWithTag("AudioMaster").GetComponent<AudioMasterScript>().PlayItemSound();
 				Debug.Log ("FUCKIOGFNIWGOINWEINOGWENIO");
                 weaponScript = other.GetComponent<WeaponScript>();
                 weaponScript.getWeapon(currentItem);

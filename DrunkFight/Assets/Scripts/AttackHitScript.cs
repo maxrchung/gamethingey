@@ -10,6 +10,7 @@ public class AttackHitScript : MonoBehaviour
 	public string destroys;
 
     private string playerId;
+    public int attackIndex;
 
     public float armDelay;
     public bool diesOnHit;
@@ -17,12 +18,25 @@ public class AttackHitScript : MonoBehaviour
 
     HashSet<string> hitPlayers = new HashSet<string>();
 
+    private AudioMasterScript audioMaster;
+    private bool playedSound;
+
     private void FixedUpdate()
     {
+        if (audioMaster == null)
+        {
+            audioMaster = GameObject.FindWithTag("AudioMaster").GetComponent<AudioMasterScript>();
+            audioMaster.PlayShootSound(attackIndex);
+        }
         if (armDelay > 0)
         {
             armDelay -= Time.fixedDeltaTime;
         }
+    }
+
+    private void OnEnable()
+    {
+        audioMaster.PlayShootSound(attackIndex);
     }
 
     public void setPlayerId(string playerId)
@@ -44,6 +58,7 @@ public class AttackHitScript : MonoBehaviour
                 hitPlayers.Add(hitPlayerId);
                 Vector3 knockbackForce = (other.transform.position - transform.position).normalized * knockback;
                 other.GetComponent<Movement>().ApplyHit(playerId, damage, knockbackForce, slow, slowDuration);
+                audioMaster.PlayHitSound(attackIndex);
                 if (diesOnHit)
                 {
                     Destroy(gameObject);
